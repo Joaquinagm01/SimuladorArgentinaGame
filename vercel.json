@@ -2,38 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/soc_api.py",
+      "src": "api/index.py",
       "use": "@vercel/python"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/soc_api.py"
+      "dest": "/api/index.py"
     },
     {
-      "src": "/soc-dashboard.html",
-      "dest": "/public/soc-dashboard.html"
+      "src": "/data/(.*)",
+      "dest": "/public/data/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|json|md|html|png|jpg|svg|ico|webp))",
+      "dest": "/public/$1"
     },
     {
       "src": "/",
       "dest": "/public/soc-dashboard.html"
-    },
-    {
-      "src": "/tutorial-viewer.html",
-      "dest": "/public/tutorial-viewer.html"
-    },
-    {
-      "src": "/(.*\\.md)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
     }
   ],
   "env": {

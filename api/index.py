@@ -1,53 +1,12 @@
 """
-API Flask para el Simulador Argentina 2001
-Compatible con Vercel Serverless Functions
+Vercel Serverless Function Handler
+Imports the main Flask app from soc_api.py
 """
-from flask import Flask, jsonify, request
-from flask_cors import CORS
-import sys
-import os
-import random
+from soc_api import app
 
-# Agregar el directorio game al path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from game.economy import Economy
-from game.decisions import DecisionManager
-from game.events import EventManager
-
-app = Flask(__name__)
-CORS(app)
-
-# Managers globales
-decision_manager = DecisionManager()
-event_manager = EventManager()
-
-# Almacenamiento en memoria (para demo, en producción usar Redis/DB)
-games = {}
-
-@app.route('/')
-def home():
-    return jsonify({
-        "message": "🇦🇷 Simulador Argentina 2001 API",
-        "version": "1.0",
-        "endpoints": ["/api/new-game", "/api/game-state", "/api/make-decision", "/api/next-turn"]
-    })
-
-def economy_to_state(economy):
-    """Convertir Economy a formato API"""
-    return {
-        'pbi': economy.pbi,
-        'reservas': economy.reservas,
-        'deuda': economy.deuda_externa / 1000,  # Normalizar
-        'desempleo': economy.desempleo,
-        'inflacion': economy.inflacion,
-        'descontento_social': max(0, 100 - economy.felicidad)
-    }
-
-@app.route('/api/new-game', methods=['POST'])
-def new_game():
-    """Crear nuevo juego"""
-    game_id = str(len(games) + 1)
+# Vercel needs the app to be exposed as 'app' or exported as a handler
+# This file serves as the entry point for Vercel
+handler = app
     economy = Economy()
     
     games[game_id] = {

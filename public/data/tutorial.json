@@ -1,0 +1,94 @@
+{
+  "steps": [
+    {
+      "step": 1,
+      "title": "Bienvenido al SOC",
+      "message": "¡Bienvenido! Eres el nuevo SOC Manager. Tu objetivo: proteger la empresa de amenazas cibernéticas durante 30 turnos. Comienza con $250,000 de presupuesto.",
+      "highlight": ".stats-grid",
+      "action": "observe",
+      "tip": "Monitorea Security Score (meta: >80), Budget y Reputation constantemente"
+    },
+    {
+      "step": 2,
+      "title": "Tu primer turno",
+      "message": "Cada turno representa un día de operaciones. Recibes $15,000 de ingreso pasivo cada turno. Tu equipo procesa alertas automáticamente.",
+      "highlight": ".game-info",
+      "action": "observe",
+      "tip": "El turno actual y máximo de turnos se muestran arriba"
+    },
+    {
+      "step": 3,
+      "title": "Analiza la situación",
+      "message": "Mira las métricas actuales: Tienes algunas amenazas activas y alertas en cola. Tu equipo inicial es pequeño: 2 analistas L1. Necesitarás fortalecerlo.",
+      "highlight": ".metrics-section",
+      "action": "observe",
+      "tip": "Servidores infectados, alertas en cola y amenazas activas son indicadores críticos"
+    },
+    {
+      "step": 4,
+      "title": "Toma tu primera decisión",
+      "message": "Elige una acción de la categoría 'Investigate'. Recomendación: 'Analyze SIEM Logs' es económico ($2,000) y te da visibilidad inicial.",
+      "highlight": ".decisions-grid",
+      "action": "decision",
+      "requiredCategory": "investigate",
+      "tip": "Las decisiones de investigación te ayudan a entender qué está pasando"
+    },
+    {
+      "step": 5,
+      "title": "¡Excelente! Primer evento",
+      "message": "Después de cada decisión, puede ocurrir un evento aleatorio. Los eventos varían según tu Security Score. ¡Sigue monitoreando!",
+      "highlight": ".events-log",
+      "action": "observe",
+      "tip": "Lee los eventos cuidadosamente - contienen información de MITRE ATT&CK"
+    },
+    {
+      "step": 6,
+      "title": "Fortalece tu equipo",
+      "message": "Ahora contrata personal. Ve a 'Team' y contrata un Analista L2 ($8,000). Los L2 procesan 2× alertas que los L1 y manejan casos más complejos.",
+      "highlight": ".decisions-grid",
+      "action": "decision",
+      "requiredCategory": "team",
+      "tip": "Balance tu equipo: L1 para volumen, L2 para complejidad, Hunters para proactividad"
+    },
+    {
+      "step": 7,
+      "title": "Responde a amenazas",
+      "message": "Si ves amenazas activas, ¡responde! Prueba 'Block Malicious IPs' o 'Isolate Infected Endpoints'. La respuesta rápida reduce MTTR.",
+      "highlight": ".decisions-grid",
+      "action": "decision",
+      "requiredCategory": "respond",
+      "tip": "MTTR (Mean Time To Respond) es un KPI clave en SOC operations"
+    },
+    {
+      "step": 8,
+      "title": "Invierte en herramientas",
+      "message": "Las herramientas multiplican la efectividad de tu equipo. Un SIEM básico cuesta $20,000 pero reduce dramáticamente tu MTTD (tiempo de detección).",
+      "highlight": ".decisions-grid",
+      "action": "decision",
+      "requiredCategory": "upgrade",
+      "tip": "Prioriza: SIEM para detección, EDR para endpoints, Threat Intel para contexto"
+    },
+    {
+      "step": 9,
+      "title": "Sé proactivo",
+      "message": "No solo reacciones. La categoría 'Proactive' incluye threat hunting, security awareness y hardening. Prevenir es mejor que remediar.",
+      "highlight": ".decisions-grid",
+      "action": "observe",
+      "tip": "Un buen SOC balancea 70% reactivo / 30% proactivo"
+    },
+    {
+      "step": 10,
+      "title": "¡Tutorial completo!",
+      "message": "¡Felicitaciones! Ya conoces lo básico. Objetivos: 1) Mantén Security Score >80, 2) Sobrevive 30 turnos, 3) Finaliza con reputación alta. ¡Buena suerte!",
+      "highlight": "body",
+      "action": "complete",
+      "tip": "Balancea presupuesto, equipo y herramientas. Lee cada evento para aprender."
+    }
+  ],
+  "shortcuts": {
+    "?": "Mostrar/ocultar ayuda",
+    "g": "Ver glosario",
+    "f": "Ver FAQ",
+    "c": "Ver casos de estudio"
+  }
+}

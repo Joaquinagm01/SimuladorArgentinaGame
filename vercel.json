@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.py",
+      "src": "api/soc_api.py",
       "use": "@vercel/python"
     },
     {
@@ -13,7 +13,23 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.py"
+      "dest": "/api/soc_api.py"
+    },
+    {
+      "src": "/soc-dashboard.html",
+      "dest": "/public/soc-dashboard.html"
+    },
+    {
+      "src": "/",
+      "dest": "/public/soc-dashboard.html"
+    },
+    {
+      "src": "/tutorial-viewer.html",
+      "dest": "/public/tutorial-viewer.html"
+    },
+    {
+      "src": "/(.*\\.md)",
+      "dest": "/public/$1"
     },
     {
       "src": "/(.*)",

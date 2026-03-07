@@ -1,0 +1,285 @@
+{
+  "categories": ["Basic", "MITRE", "Incident Response", "Tools", "Threats", "Frameworks"],
+  "questions": [
+    {
+      "id": 1,
+      "category": "Basic",
+      "difficulty": "easy",
+      "question": "¿Qué significa SOC?",
+      "options": [
+        "Security Operations Center",
+        "System Operating Control",
+        "Software Optimization Code",
+        "Security Office Command"
+      ],
+      "correct": 0,
+      "explanation": "SOC (Security Operations Center) es el equipo responsable de monitorear y defender la infraestructura de TI contra amenazas de seguridad."
+    },
+    {
+      "id": 2,
+      "category": "Basic",
+      "difficulty": "easy",
+      "question": "¿Qué es un IOC (Indicator of Compromise)?",
+      "options": [
+        "Un certificado de seguridad",
+        "Una señal de que un sistema ha sido comprometido",
+        "Un tipo de firewall",
+        "Un protocolo de red"
+      ],
+      "correct": 1,
+      "explanation": "Un IOC es evidencia forense que indica que un sistema ha sido comprometido, como IPs maliciosas, hashes de malware, o dominios sospechosos."
+    },
+    {
+      "id": 3,
+      "category": "MITRE",
+      "difficulty": "medium",
+      "question": "¿Qué táctica de MITRE ATT&CK describe el uso de credenciales robadas?",
+      "options": [
+        "Initial Access",
+        "Persistence",
+        "Privilege Escalation",
+        "Valid Accounts (puede ser cualquiera de las anteriores)"
+      ],
+      "correct": 3,
+      "explanation": "T1078 (Valid Accounts) puede aparecer en múltiples tácticas: Initial Access, Persistence, Privilege Escalation, y Defense Evasion."
+    },
+    {
+      "id": 4,
+      "category": "Incident Response",
+      "difficulty": "medium",
+      "question": "¿Cuál es el primer paso en el proceso de Incident Response según NIST?",
+      "options": [
+        "Containment",
+        "Preparation",
+        "Detection and Analysis",
+        "Eradication"
+      ],
+      "correct": 1,
+      "explanation": "NIST define el ciclo IR como: 1) Preparation, 2) Detection and Analysis, 3) Containment/Eradication/Recovery, 4) Post-Incident Activity."
+    },
+    {
+      "id": 5,
+      "category": "Tools",
+      "difficulty": "easy",
+      "question": "¿Para qué sirve un SIEM?",
+      "options": [
+        "Escanear vulnerabilidades",
+        "Agregar y correlacionar logs de múltiples fuentes",
+        "Bloquear tráfico malicioso",
+        "Encriptar comunicaciones"
+      ],
+      "correct": 1,
+      "explanation": "SIEM (Security Information and Event Management) agrega logs de múltiples fuentes, los normaliza y correlaciona para detectar amenazas."
+    },
+    {
+      "id": 6,
+      "category": "Threats",
+      "difficulty": "medium",
+      "question": "¿Qué es un APT (Advanced Persistent Threat)?",
+      "options": [
+        "Un tipo de virus simple",
+        "Un ataque automatizado de baja sofisticación",
+        "Un adversario sofisticado con objetivos de largo plazo",
+        "Una herramienta de penetration testing"
+      ],
+      "correct": 2,
+      "explanation": "Un APT es un actor de amenaza (generalmente nation-state o grupo organizado) que mantiene acceso prolongado y sigiloso a una red con objetivos específicos."
+    },
+    {
+      "id": 7,
+      "category": "Threats",
+      "difficulty": "easy",
+      "question": "¿Qué hace el ransomware?",
+      "options": [
+        "Roba contraseñas",
+        "Encripta archivos y exige rescate",
+        "Crea cuentas de usuario falsas",
+        "Escanea puertos"
+      ],
+      "correct": 1,
+      "explanation": "Ransomware encripta los archivos de la víctima y exige un pago (generalmente en criptomonedas) para proporcionar la clave de desencriptación."
+    },
+    {
+      "id": 8,
+      "category": "Frameworks",
+      "difficulty": "medium",
+      "question": "¿Cuántas fases tiene el Cyber Kill Chain de Lockheed Martin?",
+      "options": [
+        "5",
+        "7",
+        "10",
+        "12"
+      ],
+      "correct": 1,
+      "explanation": "El Cyber Kill Chain tiene 7 fases: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command & Control, Actions on Objectives."
+    },
+    {
+      "id": 9,
+      "category": "Basic",
+      "difficulty": "easy",
+      "question": "¿Qué significa MTTD?",
+      "options": [
+        "Maximum Time To Deploy",
+        "Mean Time To Detect",
+        "Minimum Threat To Defense",
+        "Multiple Threat Tracking Device"
+      ],
+      "correct": 1,
+      "explanation": "MTTD (Mean Time To Detect) es el tiempo promedio que toma detectar un incidente de seguridad desde que comienza."
+    },
+    {
+      "id": 10,
+      "category": "Incident Response",
+      "difficulty": "hard",
+      "question": "Durante un incidente de ransomware activo, ¿cuál es la prioridad INMEDIATA?",
+      "options": [
+        "Pagar el rescate",
+        "Identificar el vector de entrada",
+        "Aislar sistemas afectados de la red",
+        "Hacer backup de los archivos encriptados"
+      ],
+      "correct": 2,
+      "explanation": "La prioridad es CONTENER la amenaza aislando sistemas para prevenir propagación lateral. Luego viene investigación, erradicación y recuperación."
+    },
+    {
+      "id": 11,
+      "category": "MITRE",
+      "difficulty": "hard",
+      "question": "¿Qué técnica MITRE describe el movimiento lateral usando credenciales robadas?",
+      "options": [
+        "T1021 - Remote Services",
+        "T1078 - Valid Accounts",
+        "T1550 - Use Alternate Authentication Material",
+        "Todas las anteriores"
+      ],
+      "correct": 3,
+      "explanation": "El movimiento lateral puede usar múltiples técnicas: Remote Services (RDP/SSH), Valid Accounts, o Pass-the-Hash/Pass-the-Ticket."
+    },
+    {
+      "id": 12,
+      "category": "Frameworks",
+      "difficulty": "medium",
+      "question": "¿Cuál de las siguientes NO es una función del NIST Cybersecurity Framework?",
+      "options": [
+        "Identify",
+        "Protect",
+        "Eliminate",
+        "Recover"
+      ],
+      "correct": 2,
+      "explanation": "Las 5 funciones de NIST CSF son: Identify, Protect, Detect, Respond, Recover. 'Eliminate' no es una función del framework."
+    },
+    {
+      "id": 13,
+      "category": "Tools",
+      "difficulty": "medium",
+      "question": "¿Qué herramienta es mejor para análisis de memoria (RAM) de un endpoint comprometido?",
+      "options": [
+        "Wireshark",
+        "Volatility",
+        "Nmap",
+        "Metasploit"
+      ],
+      "correct": 1,
+      "explanation": "Volatility es el framework open-source más usado para análisis forense de memoria RAM, detectando procesos maliciosos, rootkits, etc."
+    },
+    {
+      "id": 14,
+      "category": "Threats",
+      "difficulty": "hard",
+      "question": "¿Qué técnica de evasión usa 'Living Off the Land' (LOTL)?",
+      "options": [
+        "Instalar nuevas herramientas de hacking",
+        "Usar herramientas legítimas del sistema para fines maliciosos",
+        "Crear backdoors personalizados",
+        "Usar exploits zero-day"
+      ],
+      "correct": 1,
+      "explanation": "LOTL usa herramientas legítimas del sistema (PowerShell, WMI, PsExec) para actividades maliciosas, evitando detección por AV tradicional."
+    },
+    {
+      "id": 15,
+      "category": "Incident Response",
+      "difficulty": "medium",
+      "question": "¿Qué información NO debería incluirse en un informe post-mortem?",
+      "options": [
+        "Timeline del incidente",
+        "Nombres de empleados culpables",
+        "Lecciones aprendidas",
+        "Recomendaciones de mejora"
+      ],
+      "correct": 1,
+      "explanation": "Post-mortems deben enfocarse en el proceso y mejoras del sistema, no en culpar individuos. El objetivo es aprender, no castigar."
+    },
+    {
+      "id": 16,
+      "category": "Basic",
+      "difficulty": "easy",
+      "question": "¿Qué significa CVE?",
+      "options": [
+        "Certified Vulnerability Expert",
+        "Common Vulnerabilities and Exposures",
+        "Critical Virus Elimination",
+        "Cyber Vector Exploitation"
+      ],
+      "correct": 1,
+      "explanation": "CVE es un sistema de identificación estándar para vulnerabilidades conocidas, mantenido por MITRE. Ej: CVE-2017-5638 (Equifax breach)."
+    },
+    {
+      "id": 17,
+      "category": "Frameworks",
+      "difficulty": "hard",
+      "question": "¿Cuántos controles tiene el CIS Critical Security Controls v8?",
+      "options": [
+        "18",
+        "20",
+        "27",
+        "114"
+      ],
+      "correct": 0,
+      "explanation": "CIS Controls v8 tiene 18 controles organizados en 3 grupos de implementación (IG1, IG2, IG3). ISO 27001 tiene 114 controles en Annex A."
+    },
+    {
+      "id": 18,
+      "category": "Tools",
+      "difficulty": "hard",
+      "question": "¿Qué protocolo usa SIEM para recibir logs en tiempo real?",
+      "options": [
+        "HTTP",
+        "Syslog",
+        "FTP",
+        "SMTP"
+      ],
+      "correct": 1,
+      "explanation": "Syslog (puerto 514 UDP/TCP) es el estándar para enviar logs en tiempo real. También se usa CEF (Common Event Format) o JSON sobre HTTP/S."
+    },
+    {
+      "id": 19,
+      "category": "MITRE",
+      "difficulty": "medium",
+      "question": "¿Qué táctica de MITRE describe T1486 (Data Encrypted for Impact)?",
+      "options": [
+        "Initial Access",
+        "Exfiltration",
+        "Impact",
+        "Command and Control"
+      ],
+      "correct": 2,
+      "explanation": "T1486 está en la táctica 'Impact' ya que el objetivo es interrumpir la disponibilidad de datos mediante encriptación (ransomware)."
+    },
+    {
+      "id": 20,
+      "category": "Threats",
+      "difficulty": "medium",
+      "question": "¿Qué ataque explota la confianza entre sistemas para propagarse (ej: EternalBlue)?",
+      "options": [
+        "Phishing",
+        "SQL Injection",
+        "Worm",
+        "Trojan"
+      ],
+      "correct": 2,
+      "explanation": "Un worm se auto-replica y propaga entre sistemas explotando vulnerabilidades como EternalBlue (SMBv1) usado por WannaCry y NotPetya."
+    }
+  ]
+}

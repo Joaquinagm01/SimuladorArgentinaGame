@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational System Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff41;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #00ff41;
+            background: #2a2a2a;
+        }
+        .test-result.error {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+        .test-result.success {
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+        h1 {
+            color: #00ff41;
+        }
+        button {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #00dd35;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Educational System Test Suite</h1>
+    <div id="results"></div>
+    <hr>
+    <h2>Interactive Tests:</h2>
+    <button onclick="testFrameworks()">Test Frameworks Panel</button>
+    <button onclick="testQuiz()">Test Quiz System</button>
+    <button onclick="testFlashcards()">Test Flashcards</button>
+    <button onclick="testCareerPath()">Test Career Path</button>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(message, success = true) {
+            const div = document.createElement('div');
+            div.className = `test-result ${success ? 'success' : 'error'}`;
+            div.textContent = `${success ? '✅' : '❌'} ${message}`;
+            results.appendChild(div);
+        }
+
+        async function runTests() {
+            addResult('Starting Educational System Tests...');
+
+            // Test 1: Check if files exist
+            try {
+                const response1 = await fetch('/data/frameworks.json');
+                if (response1.ok) {
+                    const data = await response1.json();
+                    addResult(`frameworks.json loaded - ${Object.keys(data.frameworks).length} frameworks found`);
+                } else {
+                    throw new Error('frameworks.json not found');
+                }
+            } catch (e) {
+                addResult(`Failed to load frameworks.json: ${e.message}`, false);
+            }
+
+            try {
+                const response2 = await fetch('/data/quiz.json');
+                if (response2.ok) {
+                    const data = await response2.json();
+                    addResult(`quiz.json loaded - ${data.questions.length} questions found`);
+                } else {
+                    throw new Error('quiz.json not found');
+                }
+            } catch (e) {
+                addResult(`Failed to load quiz.json: ${e.message}`, false);
+            }
+
+            try {
+                const response3 = await fetch('/data/flashcards.json');
+                if (response3.ok) {
+                    const data = await response3.json();
+                    const totalCards = data.decks.reduce((sum, deck) => sum + deck.cards.length, 0);
+                    addResult(`flashcards.json loaded - ${data.decks.length} decks, ${totalCards} cards`);
+                } else {
+                    throw new Error('flashcards.json not found');
+                }
+            } catch (e) {
+                addResult(`Failed to load flashcards.json: ${e.message}`, false);
+            }
+
+            try {
+                const response4 = await fetch('/data/careers.json');
+                if (response4.ok) {
+                    const data = await response4.json();
+                    addResult(`careers.json loaded - ${data.roles.length} roles, ${data.careerPaths.length} paths`);
+                } else {
+                    throw new Error('careers.json not found');
+                }
+            } catch (e) {
+                addResult(`Failed to load careers.json: ${e.message}`, false);
+            }
+
+            // Test 2: Check if educational-content.js exists
+            try {
+                const response = await fetch('/educational-content.js');
+                if (response.ok) {
+                    addResult('educational-content.js loaded successfully');
+                } else {
+                    throw new Error('educational-content.js not found');
+                }
+            } catch (e) {
+                addResult(`Failed to load educational-content.js: ${e.message}`, false);
+            }
+
+            // Test 3: Check if CSS exists
+            try {
+                const response = await fetch('/educational-styles.css');
+                if (response.ok) {
+                    const text = await response.text();
+                    const hasNewStyles = text.includes('edu-floating-menu') && 
+                                        text.includes('flashcard') && 
+                                        text.includes('quiz-question');
+                    if (hasNewStyles) {
+                        addResult('educational-styles.css contains new components');
+                    } else {
+                        addResult('educational-styles.css missing new styles', false);
+                    }
+                } else {
+                    throw new Error('educational-styles.css not found');
+                }
+            } catch (e) {
+                addResult(`Failed to load educational-styles.css: ${e.message}`, false);
+            }
+
+            addResult('All tests completed!');
+        }
+
+        function testFrameworks() {
+            if (typeof eduContentSystem !== 'undefined') {
+                eduContentSystem.showFrameworksPanel();
+                addResult('Frameworks panel opened - check browser');
+            } else {
+                addResult('eduContentSystem not loaded - reload soc-dashboard.html', false);
+            }
+        }
+
+        function testQuiz() {
+            if (typeof eduContentSystem !== 'undefined') {
+                eduContentSystem.startQuiz();
+                addResult('Quiz started - check browser');
+            } else {
+                addResult('eduContentSystem not loaded - reload soc-dashboard.html', false);
+            }
+        }
+
+        function testFlashcards() {
+            if (typeof eduContentSystem !== 'undefined') {
+                eduContentSystem.showFlashcards();
+                addResult('Flashcards opened - check browser');
+            } else {
+                addResult('eduContentSystem not loaded - reload soc-dashboard.html', false);
+            }
+        }
+
+        function testCareerPath() {
+            if (typeof eduContentSystem !== 'undefined') {
+                eduContentSystem.showCareerPath();
+                addResult('Career path opened - check browser');
+            } else {
+                addResult('eduContentSystem not loaded - reload soc-dashboard.html', false);
+            }
+        }
+
+        // Run tests on page load
+        window.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Initialization</title>
+</head>
+<body>
+    <h1>Test de Inicialización del Juego</h1>
+    <button id="test-btn">Probar API</button>
+    <pre id="result"></pre>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8080'
+            : '';
+
+        document.getElementById('test-btn').addEventListener('click', async () => {
+            const result = document.getElementById('result');
+            result.textContent = 'Probando API...\n';
+
+            try {
+                // Test 1: Health check
+                result.textContent += '\n1. Testing health endpoint...\n';
+                const healthRes = await fetch(`${API_URL}/api/health`);
+                const health = await healthRes.json();
+                result.textContent += `   ✅ Health: ${health.status}\n`;
+
+                // Test 2: Create game
+                result.textContent += '\n2. Creating new game...\n';
+                const gameRes = await fetch(`${API_URL}/api/game/new`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const game = await gameRes.json();
+                result.textContent += `   ✅ Session: ${game.sessionId}\n`;
+                result.textContent += `   ✅ Budget: $${game.state.budget}\n`;
+                result.textContent += `   ✅ Security Score: ${game.state.securityScore}\n`;
+
+                // Test 3: Get decisions
+                result.textContent += '\n3. Getting decisions...\n';
+                const decisionsRes = await fetch(`${API_URL}/api/game/${game.sessionId}/decisions?category=investigate`);
+                const decisions = await decisionsRes.json();
+                result.textContent += `   ✅ Found ${decisions.decisions.length} decisions\n`;
+
+                result.textContent += '\n✅ TODAS LAS PRUEBAS PASARON!\n';
+                result.textContent += '\nEl servidor funciona correctamente.\n';
+                result.textContent += 'Si el juego no arranca, el problema está en el JavaScript del frontend.\n';
+
+            } catch (error) {
+                result.textContent += `\n❌ ERROR: ${error.message}\n`;
+            }
+        });
+    </script>
+</body>
+</html>

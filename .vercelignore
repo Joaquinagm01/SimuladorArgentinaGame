@@ -1,0 +1,43 @@
+# Development files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data files
+data/
+*.csv
+
+# Notebooks
+analysis/
+*.ipynb
+
+# Local testing
+run_game.py
+game/main.py
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (keep only what's needed in public/)
+/TUTORIAL.md
+/MODO_FACIL.md
+/INICIO_RAPIDO.md
+/PLAY.md
+/README_CYBER.md
+/TODO.md

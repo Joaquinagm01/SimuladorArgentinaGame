@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <!-- Primary Meta Tags -->
+    <title>🛡️ Cyber Defense Simulator - SOC Dashboard</title>
+    <meta name="title" content="Cyber Defense Simulator - SOC Training">
+    <meta name="description" content="Interactive cybersecurity training game. Learn SOC operations, incident response, and threat hunting through realistic scenarios based on MITRE ATT&CK.">
+    <meta name="keywords" content="cybersecurity, SOC, security operations, incident response, threat hunting, MITRE ATT&CK, training, simulation">
+    <meta name="author" content="SOC Simulator Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://simuladorargentinagame.vercel.app/">
+    <meta property="og:title" content="Cyber Defense Simulator - SOC Training">
+    <meta property="og:description" content="Learn cybersecurity through realistic SOC simulations. Master incident response, threat hunting, and security operations.">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%230a0e27'/%3E%3Ctext x='600' y='315' text-anchor='middle' dominant-baseline='central' font-size='120' fill='%2300ff41'%3E🛡️ SOC Simulator%3C/text%3E%3C/svg%3E">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://simuladorargentinagame.vercel.app/">
+    <meta property="twitter:title" content="Cyber Defense Simulator - SOC Training">
+    <meta property="twitter:description" content="Learn cybersecurity through realistic SOC simulations. Master incident response and threat hunting.">
+    <meta property="twitter:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%230a0e27'/%3E%3Ctext x='600' y='315' text-anchor='middle' dominant-baseline='central' font-size='120' fill='%2300ff41'%3E🛡️ SOC Simulator%3C/text%3E%3C/svg%3E">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#00ff41">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SOC Simulator">
+    <meta name="application-name" content="SOC Simulator">
+    <meta name="msapplication-TileColor" content="#0a0e27">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a0e27%22 rx=%2220%22/%3E<text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dominant-baseline=%22central%22 font-size=%2260%22 fill=%22%2300ff41%22>🛡️</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="soc-style.css">
+    <link rel="stylesheet" href="educational-styles.css">
+    <link rel="stylesheet" href="pwa-styles.css">
+    <link rel="stylesheet" href="save-styles.css">
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <!-- Matrix Background Effect -->
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="title-container">
+                <div class="glitch" data-text="🛡️ CYBER DEFENSE">🛡️ CYBER DEFENSE</div>
+                <h1 class="cyber-title">SIMULATOR</h1>
+                <p class="subtitle">SOC OPERATIONS CENTER</p>
+                <p style="margin-top: 15px; font-size: 0.9em; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    🎓 <strong>Juego Educativo de Ciberseguridad</strong><br>
+                    Aprende a defender organizaciones de ataques reales<br>
+                    📚 ¿Primera vez? Lee el <a href="tutorial-viewer.html" style="color: #00ff41; text-decoration: underline; font-weight: bold;">📖 TUTORIAL</a>
+                </p>
+                <div class="mitre-badge">
+                    <span>Powered by MITRE ATT&CK</span>
+                </div>
+            </div>
+            <button id="start-btn" class="cyber-btn">INITIALIZE SOC</button>
+            <div class="credits">
+                <p>🎯 Misión: Sobrevivir 30 turnos | Security Score > 20</p>
+                <p>💡 Modo Principiante: Recursos mejorados para aprender</p>
+                <p class="blink">▶ PRESS START ◀</p>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <!-- Header Compacto -->
+            <div class="game-header">
+                <h2 class="soc-title">🛡️ SOC</h2>
+                <div class="header-stats">
+                    <div class="stat" data-metric="budget" data-tooltip="Presupuesto disponible para decisiones. Recibes $15K por turno.">
+                        <div>
+                            <span class="stat-label">💰</span>
+                            <span id="budget" class="stat-value">$250K</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="budget-bar" class="progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="stat" data-metric="security-score" data-tooltip="Nivel de seguridad de tu organización. Si llega a 0, pierdes.">
+                        <div>
+                            <span class="stat-label">🔒</span>
+                            <span id="security-score" class="stat-value">85</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="security-bar" class="progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="stat" data-metric="reputation" data-tooltip="Reputación con stakeholders. Afecta presupuesto y contratos.">
+                        <div>
+                            <span class="stat-label">⭐</span>
+                            <span id="reputation" class="stat-value">60</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="reputation-bar" class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">📅</span>
+                        <span id="turn" class="stat-value">1</span><span class="stat-max">/30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Compacto -->
+            <div class="dashboard-mobile">
+                <!-- Panel Económico -->
+                <div class="panel eco-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">💰</span>
+                        <h3>ECONOMÍA</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="eco-stats">
+                            <div class="eco-item">
+                                <span class="eco-label">💵 Presupuesto</span>
+                                <span id="budget-full" class="eco-value">$250,000</span>
+                            </div>
+                            <div class="eco-item">
+                                <span class="eco-label">📈 Ingresos/Turno</span>
+                                <span id="income-display" class="eco-value success">+$15,000</span>
+                            </div>
+                            <div class="eco-item">
+                                <span class="eco-label">📉 Gastos Totales</span>
+                                <span id="total-spent" class="eco-value warning">$0</span>
+                            </div>
+                            <div class="eco-item">
+                                <span class="eco-label">💎 ROI Herramientas</span>
+                                <span id="tools-roi" class="eco-value">+0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de Amenazas -->
+                <div class="panel threat-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">🚨</span>
+                        <h3>ESTADO</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="threat-grid">
+                            <div class="threat-stat">
+                                <span class="threat-number critical" id="active-threats">0</span>
+                                <span class="threat-label">Amenazas</span>
+                            </div>
+                            <div class="threat-stat">
+                                <span class="threat-number warning" id="alerts-queue">0</span>
+                                <span class="threat-label">Alertas</span>
+                            </div>
+                            <div class="threat-stat">
+                                <span class="threat-number success" id="incidents-resolved">0</span>
+                                <span class="threat-label">Resueltos</span>
+                            </div>
+                            <div class="threat-stat">
+                                <span class="threat-number" id="team-capacity">13</span>
+                                <span class="threat-label">Capacidad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Log Compacto -->
+            <div class="event-log-container">
+                <div class="panel-header">
+                    <span class="panel-icon">📋</span>
+                    <h3>LOG</h3>
+                    <button id="clear-log-btn" class="small-btn">X</button>
+                </div>
+                <div id="event-log" class="event-log">
+                    <div class="log-entry info">
+                        <span class="message">🛡️ SOC listo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Suggestion Compacto -->
+            <div class="suggestion-panel" id="suggestion-panel">
+                <div class="suggestion-icon">💡</div>
+                <div class="suggestion-content">
+                    <div class="suggestion-text" id="suggestion-text">
+                        Analizando...
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUEVO: Sistema de Pestañas para Decisiones -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <h3 class="tabs-main-title">🎯 CENTRO DE DECISIONES</h3>
+                    <div class="tabs-nav">
+                        <button class="tab-btn active" data-tab="investigate">
+                            <span class="tab-icon">🔍</span>
+                            <span class="tab-label">INVESTIGATE</span>
+                        </button>
+                        <button class="tab-btn" data-tab="respond">
+                            <span class="tab-icon">🚨</span>
+                            <span class="tab-label">RESPOND</span>
+                        </button>
+                        <button class="tab-btn" data-tab="upgrade">
+                            <span class="tab-icon">🔧</span>
+                            <span class="tab-label">UPGRADE</span>
+                        </button>
+                        <button class="tab-btn" data-tab="team">
+                            <span class="tab-icon">👥</span>
+                            <span class="tab-label">TEAM</span>
+                        </button>
+                        <button class="tab-btn" data-tab="proactive">
+                            <span class="tab-icon">🎯</span>
+                            <span class="tab-label">PROACTIVE</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Content Panels -->
+                <div class="tabs-content">
+                    <!-- INVESTIGATE Tab -->
+                    <div class="tab-panel active" id="tab-investigate">
+                        <div class="tab-help-header">
+                            <h4>🔍 Investigar Alertas y Amenazas</h4>
+                            <button class="help-btn" data-help="investigate">
+                                <span class="help-icon">❓</span>
+                                <span class="help-text">Ayuda</span>
+                            </button>
+                        </div>
+                        <p class="tab-description">Analiza alertas de seguridad y busca amenazas ocultas en tu red.</p>
+                        <div class="decisions-grid" id="decisions-investigate">
+                            <!-- Decisions will be loaded here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- RESPOND Tab -->
+                    <div class="tab-panel" id="tab-respond">
+                        <div class="tab-help-header">
+                            <h4>🚨 Responder a Incidentes</h4>
+                            <button class="help-btn" data-help="respond">
+                                <span class="help-icon">❓</span>
+                                <span class="help-text">Ayuda</span>
+                            </button>
+                        </div>
+                        <p class="tab-description">Acciones inmediatas para contener y remediar amenazas activas.</p>
+                        <div class="decisions-grid" id="decisions-respond">
+                            <!-- Decisions will be loaded here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- UPGRADE Tab -->
+                    <div class="tab-panel" id="tab-upgrade">
+                        <div class="tab-help-header">
+                            <h4>🔧 Mejorar Herramientas</h4>
+                            <button class="help-btn" data-help="upgrade">
+                                <span class="help-icon">❓</span>
+                                <span class="help-text">Ayuda</span>
+                            </button>
+                        </div>
+                        <p class="tab-description">Invierte en tecnología avanzada para fortalecer tus defensas.</p>
+                        <div class="decisions-grid" id="decisions-upgrade">
+                            <!-- Decisions will be loaded here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- TEAM Tab -->
+                    <div class="tab-panel" id="tab-team">
+                        <div class="tab-help-header">
+                            <h4>👥 Gestionar Equipo</h4>
+                            <button class="help-btn" data-help="team">
+                                <span class="help-icon">❓</span>
+                                <span class="help-text">Ayuda</span>
+                            </button>
+                        </div>
+                        <p class="tab-description">Contrata y entrena analistas para mejorar la capacidad del SOC.</p>
+                        <div class="decisions-grid" id="decisions-team">
+                            <!-- Decisions will be loaded here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- PROACTIVE Tab -->
+                    <div class="tab-panel" id="tab-proactive">
+                        <div class="tab-help-header">
+                            <h4>🎯 Acciones Preventivas</h4>
+                            <button class="help-btn" data-help="proactive">
+                                <span class="help-icon">❓</span>
+                                <span class="help-text">Ayuda</span>
+                            </button>
+                        </div>
+                        <p class="tab-description">Prevén futuros ataques con medidas proactivas de seguridad.</p>
+                        <div class="decisions-grid" id="decisions-proactive">
+                            <!-- Decisions will be loaded here by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUEVO: Modal de Ayuda Contextual -->
+            <div class="help-modal" id="help-modal">
+                <div class="help-modal-content">
+                    <button class="help-modal-close" id="help-modal-close">✕</button>
+                    <h3 class="help-modal-title" id="help-modal-title">Ayuda</h3>
+                    <div class="help-modal-body" id="help-modal-body">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="screen">
+            <div class="title-container">
+                <h1 class="game-over-title">💥 SYSTEM COMPROMISED</h1>
+                <div id="gameover-message" class="gameover-message"></div>
+                <div id="final-stats" class="final-stats"></div>
+            </div>
+            <button id="restart-btn" class="cyber-btn">RESTART SOC</button>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen">
+            <div class="title-container">
+                <h1 class="victory-title">🏆 MISSION ACCOMPLISHED</h1>
+                <div id="victory-message" class="victory-message"></div>
+                <div id="victory-stats" class="final-stats"></div>
+            </div>
+            <button id="victory-restart-btn" class="cyber-btn">NEW SIMULATION</button>
+        </div>
+    </div>
+
+    <!-- Floating Help Button -->
+    <a href="tutorial-viewer.html" target="_blank" class="floating-help-btn" title="Abrir Tutorial y Documentación">
+        📚
+    </a>
+
+    <!-- PWA Support -->
+    <script src="pwa.js"></script>
+    
+    <!-- Performance Optimizations -->
+    <script src="performance.js"></script>
+    
+    <!-- Save System -->
+    <script src="save-system.js"></script>
+    <script src="save-ui.js"></script>
+    
+    <!-- Educational System & Stats Dashboard -->
+    <script src="educational-system.js"></script>
+    <script src="stats-dashboard.js"></script>
+    <script src="educational-content.js"></script>
+    <script src="soc-game.js"></script>
+    
+    <!-- Offline Indicator -->
+    <div class="offline-indicator">
+        🔌 You are offline. Some features may be limited.
+    </div>
+</body>
+</html>

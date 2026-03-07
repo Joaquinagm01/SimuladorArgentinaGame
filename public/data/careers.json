@@ -1,0 +1,224 @@
+{
+  "roles": [
+    {
+      "id": "analyst_l1",
+      "name": "SOC Analyst L1",
+      "aka": ["Security Analyst", "Junior Analyst", "Tier 1 Analyst"],
+      "level": "Entry",
+      "experience": "0-2 years",
+      "salary": {
+        "us": "$50,000 - $70,000",
+        "latam": "$15,000 - $30,000",
+        "europe": "€35,000 - €50,000"
+      },
+      "responsibilities": [
+        "Monitor security alerts 24/7",
+        "Triage and classify alerts (true positive vs false positive)",
+        "Escalate incidents to L2",
+        "Document incidents in ticketing system",
+        "Basic investigation using SIEM, EDR",
+        "Follow playbooks and runbooks"
+      ],
+      "skills": {
+        "required": ["SIEM basics", "Log analysis", "Networking fundamentals", "OS basics (Windows/Linux)"],
+        "preferred": ["Security+", "Basic scripting", "Ticketing systems"]
+      },
+      "certifications": ["Security+", "CySA+", "Network+"],
+      "nextStep": "SOC Analyst L2",
+      "typical_day": "Monitor dashboards, triage 20-50 alerts/shift, escalate 5-10 incidents, attend shift handover meetings."
+    },
+    {
+      "id": "analyst_l2",
+      "name": "SOC Analyst L2",
+      "aka": ["Senior Analyst", "Tier 2 Analyst", "Incident Responder"],
+      "level": "Mid",
+      "experience": "2-5 years",
+      "salary": {
+        "us": "$70,000 - $95,000",
+        "latam": "$25,000 - $45,000",
+        "europe": "€50,000 - €70,000"
+      },
+      "responsibilities": [
+        "Deep-dive investigation of escalated incidents",
+        "Perform forensic analysis (disk, memory, network)",
+        "Contain and remediate threats",
+        "Write custom detection rules (Sigma, YARA)",
+        "Create and update playbooks",
+        "Mentor L1 analysts"
+      ],
+      "skills": {
+        "required": ["Advanced log analysis", "Forensics", "Malware analysis basics", "Scripting (Python/PowerShell)", "MITRE ATT&CK"],
+        "preferred": ["Threat hunting", "OSINT", "Regex", "API usage"]
+      },
+      "certifications": ["CySA+", "GCIH", "CEH"],
+      "nextStep": "Threat Hunter / SOC Lead / Incident Response Manager",
+      "typical_day": "Investigate 3-5 complex incidents, perform forensic analysis, write detection rules, correlate IOCs across systems."
+    },
+    {
+      "id": "threat_hunter",
+      "name": "Threat Hunter",
+      "aka": ["Proactive Analyst", "Advanced Analyst"],
+      "level": "Advanced",
+      "experience": "3-7 years",
+      "salary": {
+        "us": "$90,000 - $130,000",
+        "latam": "$35,000 - $60,000",
+        "europe": "€65,000 - €90,000"
+      },
+      "responsibilities": [
+        "Proactively search for hidden threats (no alerts)",
+        "Hypothesis-driven hunting using threat intelligence",
+        "Analyze TTPs and hunt for APT activity",
+        "Develop advanced detection logic",
+        "Collaborate with threat intel team",
+        "Red team collaboration"
+      ],
+      "skills": {
+        "required": ["Advanced threat intelligence", "Behavioral analysis", "Scripting/automation", "Data analytics", "Adversary TTPs"],
+        "preferred": ["Malware reverse engineering", "Network forensics", "EDR query languages (KQL, SPL)"]
+      },
+      "certifications": ["GCIH", "GCFA", "GCIA", "OSCP"],
+      "nextStep": "Lead Threat Hunter / Threat Intelligence Analyst / Purple Team Lead",
+      "typical_day": "Run 2-3 hunting hypotheses, analyze 10GB+ of logs, identify 1-2 new TTPs, create detection rules, document findings."
+    },
+    {
+      "id": "ir_manager",
+      "name": "Incident Response Manager",
+      "aka": ["IR Lead", "CSIRT Manager"],
+      "level": "Management",
+      "experience": "5-10 years",
+      "salary": {
+        "us": "$110,000 - $160,000",
+        "latam": "$45,000 - $75,000",
+        "europe": "€80,000 - €120,000"
+      },
+      "responsibilities": [
+        "Lead major incident response efforts",
+        "Coordinate cross-functional teams during incidents",
+        "Communicate with C-level executives",
+        "Develop IR strategy and procedures",
+        "Conduct post-incident reviews",
+        "Manage retainer relationships with external IR firms"
+      ],
+      "skills": {
+        "required": ["Leadership", "Crisis management", "Stakeholder communication", "Technical IR expertise", "NIST IR framework"],
+        "preferred": ["Legal/compliance knowledge", "Budget management", "Vendor management"]
+      },
+      "certifications": ["CISSP", "CISM", "GCIH", "GIAC GCFA"],
+      "nextStep": "CISO / VP of Security Operations / Director of Cybersecurity",
+      "typical_day": "Oversee 2-3 active incidents, briefings with leadership, review IR metrics, update procedures, vendor calls."
+    },
+    {
+      "id": "soc_manager",
+      "name": "SOC Manager",
+      "aka": ["SOC Lead", "Security Operations Manager"],
+      "level": "Management",
+      "experience": "5-8 years",
+      "salary": {
+        "us": "$100,000 - $145,000",
+        "latam": "$40,000 - $70,000",
+        "europe": "€75,000 - €110,000"
+      },
+      "responsibilities": [
+        "Manage SOC team (hiring, training, performance)",
+        "Define SOC strategy and KPIs",
+        "Optimize detection and response capabilities",
+        "Tool selection and budget management",
+        "Report to CISO on security posture",
+        "Coordinate with IT, legal, HR during incidents"
+      ],
+      "skills": {
+        "required": ["Team management", "Strategic planning", "Budget", "Security architecture", "Metrics and reporting"],
+        "preferred": ["Project management", "Change management", "Process improvement"]
+      },
+      "certifications": ["CISSP", "CISM", "CRISC"],
+      "nextStep": "Senior Security Manager / Director of Security Operations / CISO",
+      "typical_day": "Team stand-ups, KPI reviews, budget planning, tool evaluations, stakeholder meetings, incident oversight."
+    },
+    {
+      "id": "threat_intel",
+      "name": "Threat Intelligence Analyst",
+      "aka": ["CTI Analyst", "Cyber Threat Analyst"],
+      "level": "Mid-Advanced",
+      "experience": "3-6 years",
+      "salary": {
+        "us": "$85,000 - $120,000",
+        "latam": "$30,000 - $55,000",
+        "europe": "€60,000 - €85,000"
+      },
+      "responsibilities": [
+        "Collect and analyze threat intelligence from OSINT, dark web, feeds",
+        "Profile threat actors and their TTPs",
+        "Produce intelligence reports for stakeholders",
+        "Enrich SOC alerts with threat context",
+        "Track campaigns and vulnerabilities",
+        "Collaborate with ISAC, law enforcement"
+      ],
+      "skills": {
+        "required": ["OSINT", "Threat actor profiling", "Geopolitics", "Analytical writing", "MITRE ATT&CK"],
+        "preferred": ["Foreign languages", "Malware analysis", "Dark web research", "Indicators enrichment"]
+      },
+      "certifications": ["GCTI", "GCIA", "CISSP"],
+      "nextStep": "Senior Threat Intel Analyst / Threat Intel Lead / APT Researcher",
+      "typical_day": "Monitor threat feeds, research APT campaigns, write 1-2 intel reports, enrich 10-15 IOCs, brief SOC team."
+    }
+  ],
+  "careerPaths": [
+    {
+      "path": "Technical Track",
+      "stages": [
+        "SOC Analyst L1 (0-2 yrs)",
+        "SOC Analyst L2 (2-5 yrs)",
+        "Threat Hunter / Senior Analyst (5-7 yrs)",
+        "Lead Threat Hunter / Principal Analyst (7-10 yrs)",
+        "Staff Security Engineer / Architect (10+ yrs)"
+      ]
+    },
+    {
+      "path": "Management Track",
+      "stages": [
+        "SOC Analyst L1 (0-2 yrs)",
+        "SOC Analyst L2 (2-4 yrs)",
+        "Team Lead / Shift Lead (4-6 yrs)",
+        "SOC Manager (6-8 yrs)",
+        "Director of Security Operations (8-12 yrs)",
+        "VP Security / CISO (12+ yrs)"
+      ]
+    },
+    {
+      "path": "Specialization Track",
+      "stages": [
+        "SOC Analyst L1/L2 (0-3 yrs)",
+        "Specialize: Threat Intel / IR / Forensics / Malware (3-6 yrs)",
+        "Senior Specialist (6-10 yrs)",
+        "Subject Matter Expert / Principal (10+ yrs)",
+        "Consulting / Research (varies)"
+      ]
+    }
+  ],
+  "skillDevelopment": {
+    "beginner": {
+      "technical": ["Networking (TCP/IP, DNS, HTTP)", "OS fundamentals (Windows, Linux)", "SIEM basics", "Log analysis"],
+      "certifications": ["Security+", "Network+", "Google Cybersecurity Certificate"],
+      "resources": ["TryHackMe", "HackTheBox Academy", "Cybrary", "Professor Messer (YouTube)"]
+    },
+    "intermediate": {
+      "technical": ["Scripting (Python, PowerShell)", "Forensics", "Malware analysis", "MITRE ATT&CK", "Threat hunting"],
+      "certifications": ["CySA+", "GCIH", "CEH", "eLearnSecurity eJPT"],
+      "resources": ["SANS Reading Room", "DFIR.training", "Malware Traffic Analysis", "Blue Team Labs Online"]
+    },
+    "advanced": {
+      "technical": ["Reverse engineering", "Advanced threat hunting", "Detection engineering", "Red team tactics"],
+      "certifications": ["OSCP", "GCFA", "GREM", "CISSP"],
+      "resources": ["Offensive Security Courses", "SANS FOR508/610", "MalwareTech Blog", "ATT&CK Evaluations"]
+    }
+  },
+  "industryStats": {
+    "jobGrowth": "35% (2020-2030) - Much faster than average",
+    "globalShortage": "3.5 million unfilled positions (2023)",
+    "averageStress": "High - 24/7 operations, alert fatigue",
+    "workLifeBalance": "Varies - Shift work (L1/L2), better at senior levels",
+    "remoteWork": "80%+ roles offer remote or hybrid (post-2020)",
+    "demandingSkills": ["Cloud security", "Python", "Threat hunting", "IR", "MITRE ATT&CK"]
+  }
+}

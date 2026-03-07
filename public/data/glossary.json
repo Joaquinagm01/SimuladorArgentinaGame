@@ -1,0 +1,124 @@
+{
+  "terms": [
+    {
+      "term": "SIEM",
+      "definition": "Security Information and Event Management - Sistema que agrega y analiza logs de seguridad en tiempo real",
+      "example": "Splunk, QRadar, Sentinel",
+      "category": "Tools"
+    },
+    {
+      "term": "IOC",
+      "definition": "Indicator of Compromise - Evidencia forense que indica una posible intrusión",
+      "example": "Hash de malware, IP maliciosa, dominio C2",
+      "category": "Threat Intelligence"
+    },
+    {
+      "term": "MITRE ATT&CK",
+      "definition": "Framework de tácticas y técnicas usadas por adversarios basado en observaciones del mundo real",
+      "example": "T1566 (Phishing), T1059 (Command Line)",
+      "category": "Frameworks"
+    },
+    {
+      "term": "SOC",
+      "definition": "Security Operations Center - Equipo centralizado que monitorea y responde a incidentes de seguridad",
+      "example": "SOC L1, L2, L3 analysts",
+      "category": "Organization"
+    },
+    {
+      "term": "Threat Hunting",
+      "definition": "Búsqueda proactiva de amenazas que evadieron defensas automatizadas",
+      "example": "Buscar anomalías en comportamiento de usuarios",
+      "category": "Operations"
+    },
+    {
+      "term": "MTTD",
+      "definition": "Mean Time To Detect - Tiempo promedio para detectar una amenaza",
+      "example": "Reducir MTTD de 200 a 50 horas",
+      "category": "Metrics"
+    },
+    {
+      "term": "MTTR",
+      "definition": "Mean Time To Respond - Tiempo promedio para responder a un incidente",
+      "example": "Mejorar MTTR de 4 a 2 horas",
+      "category": "Metrics"
+    },
+    {
+      "term": "EDR",
+      "definition": "Endpoint Detection and Response - Solución de seguridad para endpoints",
+      "example": "CrowdStrike, SentinelOne, Microsoft Defender",
+      "category": "Tools"
+    },
+    {
+      "term": "IDS/IPS",
+      "definition": "Intrusion Detection/Prevention System - Sistema que detecta y bloquea tráfico malicioso",
+      "example": "Snort, Suricata, Zeek",
+      "category": "Tools"
+    },
+    {
+      "term": "Ransomware",
+      "definition": "Malware que encripta archivos y exige pago para recuperarlos",
+      "example": "WannaCry, REvil, Conti",
+      "category": "Threats"
+    },
+    {
+      "term": "APT",
+      "definition": "Advanced Persistent Threat - Atacante sofisticado con objetivos a largo plazo",
+      "example": "APT28, APT29, Lazarus Group",
+      "category": "Threats"
+    },
+    {
+      "term": "Zero-Day",
+      "definition": "Vulnerabilidad desconocida sin parche disponible",
+      "example": "Log4Shell, EternalBlue",
+      "category": "Vulnerabilities"
+    },
+    {
+      "term": "Phishing",
+      "definition": "Ataque que usa engaño para robar credenciales o instalar malware",
+      "example": "Email falso de CEO, sitio web clonado",
+      "category": "Threats"
+    },
+    {
+      "term": "SOAR",
+      "definition": "Security Orchestration Automation and Response - Automatización de respuestas de seguridad",
+      "example": "Phantom, Demisto, Cortex XSOAR",
+      "category": "Tools"
+    },
+    {
+      "term": "Threat Intelligence",
+      "definition": "Información sobre amenazas actuales y emergentes",
+      "example": "Feeds de IPs maliciosas, TTPs de atacantes",
+      "category": "Intelligence"
+    },
+    {
+      "term": "Forensics",
+      "definition": "Análisis post-incidente para determinar qué ocurrió",
+      "example": "Análisis de memoria, timeline reconstruction",
+      "category": "Response"
+    },
+    {
+      "term": "NIST CSF",
+      "definition": "NIST Cybersecurity Framework - Marco de referencia para gestión de riesgos",
+      "example": "Identify, Protect, Detect, Respond, Recover",
+      "category": "Frameworks"
+    },
+    {
+      "term": "WAF",
+      "definition": "Web Application Firewall - Firewall específico para aplicaciones web",
+      "example": "Cloudflare, AWS WAF, ModSecurity",
+      "category": "Tools"
+    },
+    {
+      "term": "DDoS",
+      "definition": "Distributed Denial of Service - Ataque que busca saturar un servicio",
+      "example": "Botnet SYN flood, amplification attacks",
+      "category": "Threats"
+    },
+    {
+      "term": "CVE",
+      "definition": "Common Vulnerabilities and Exposures - Identificador único para vulnerabilidades",
+      "example": "CVE-2021-44228 (Log4Shell)",
+      "category": "Vulnerabilities"
+    }
+  ]
+}

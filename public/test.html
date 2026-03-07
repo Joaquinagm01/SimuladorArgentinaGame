@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TEST</title>
+</head>
+<body style="background: black; color: lime; font-family: monospace; padding: 50px;">
+    <h1>🧪 TEST DE JAVASCRIPT</h1>
+    <button id="btn" style="font-size: 30px; padding: 20px;">PRESIONÁ ACÁ</button>
+    <div id="result" style="margin-top: 20px; font-size: 20px;"></div>
+    
+    <script>
+        // Si ves esto en View Source, el archivo está bien
+        alert('¡JAVASCRIPT FUNCIONA!');
+        console.log('✅ Console funciona');
+        
+        document.getElementById('result').innerHTML = '✅ El script se ejecutó';
+        
+        document.getElementById('btn').onclick = function() {
+            alert('¡CLICK FUNCIONA!');
+            document.getElementById('result').innerHTML = '🎉 TODO FUNCIONA!!!';
+        };
+    </script>
+</body>
+</html>

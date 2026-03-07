@@ -1,0 +1,166 @@
+{
+  "decks": [
+    {
+      "id": "basic",
+      "name": "Conceptos Básicos",
+      "cards": [
+        {
+          "front": "¿Qué es SOC?",
+          "back": "Security Operations Center - Equipo centralizado que monitorea, detecta, analiza y responde a incidentes de ciberseguridad 24/7."
+        },
+        {
+          "front": "¿Qué es SIEM?",
+          "back": "Security Information and Event Management - Plataforma que agrega logs, normaliza datos, correlaciona eventos y genera alertas de seguridad."
+        },
+        {
+          "front": "¿Qué es EDR?",
+          "back": "Endpoint Detection and Response - Solución que monitorea endpoints en tiempo real, detecta comportamientos maliciosos y permite respuesta remota."
+        },
+        {
+          "front": "¿Qué es un IOC?",
+          "back": "Indicator of Compromise - Evidencia forense que indica que un sistema ha sido comprometido (IPs maliciosas, hashes, dominios, etc.)."
+        },
+        {
+          "front": "¿Qué es Threat Intelligence?",
+          "back": "Información sobre amenazas actuales y emergentes: TTPs de actores, IOCs, vulnerabilidades, campañas activas. Ayuda a anticipar ataques."
+        }
+      ]
+    },
+    {
+      "id": "mitre",
+      "name": "MITRE ATT&CK",
+      "cards": [
+        {
+          "front": "¿Qué es MITRE ATT&CK?",
+          "back": "Knowledge base de tácticas y técnicas de adversarios basada en observaciones del mundo real. Organizado en 14 tácticas y 200+ técnicas."
+        },
+        {
+          "front": "Initial Access",
+          "back": "Táctica: Cómo los adversarios intentan entrar a tu red. Técnicas: Phishing, Exploit Public-Facing App, Valid Accounts, USB."
+        },
+        {
+          "front": "Persistence",
+          "back": "Táctica: Mantener acceso al sistema. Técnicas: Scheduled Tasks, Boot/Logon Autostart, Account Creation, Web Shell."
+        },
+        {
+          "front": "Privilege Escalation",
+          "back": "Táctica: Obtener permisos más altos. Técnicas: Exploit vulnerabilities, Token Manipulation, Sudo/setuid, DLL Hijacking."
+        },
+        {
+          "front": "Defense Evasion",
+          "back": "Táctica: Evitar detección. Técnicas: Disable Security Tools, Obfuscation, Masquerading, Rootkit, Clear Logs."
+        },
+        {
+          "front": "Credential Access",
+          "back": "Táctica: Robar credenciales. Técnicas: Brute Force, Password Spraying, Credential Dumping, Keylogging."
+        },
+        {
+          "front": "Discovery",
+          "back": "Táctica: Explorar el entorno. Técnicas: Network Scanning, System Info Discovery, Account Discovery, File/Directory Discovery."
+        },
+        {
+          "front": "Lateral Movement",
+          "back": "Táctica: Moverse entre sistemas. Técnicas: Remote Services (RDP/SSH), Pass-the-Hash, WMI, PsExec."
+        },
+        {
+          "front": "Collection",
+          "back": "Táctica: Reunir datos de interés. Técnicas: Screen Capture, Clipboard Data, Audio/Video Capture, Archive Data."
+        },
+        {
+          "front": "Exfiltration",
+          "back": "Táctica: Sacar datos de la red. Técnicas: Over C2 Channel, Web Service (Dropbox/GitHub), USB, DNS Tunneling."
+        },
+        {
+          "front": "Impact",
+          "back": "Táctica: Interrumpir/destruir. Técnicas: Data Encrypted for Impact (Ransomware), Defacement, Resource Hijacking (Cryptomining)."
+        }
+      ]
+    },
+    {
+      "id": "metrics",
+      "name": "Métricas SOC",
+      "cards": [
+        {
+          "front": "MTTD",
+          "back": "Mean Time To Detect - Tiempo promedio desde que comienza un incidente hasta que es detectado. Objetivo: <1 hora para eventos críticos."
+        },
+        {
+          "front": "MTTR",
+          "back": "Mean Time To Respond - Tiempo promedio desde detección hasta contención/remediación del incidente. Objetivo: <4 horas para críticos."
+        },
+        {
+          "front": "MTTC",
+          "back": "Mean Time To Contain - Tiempo desde detección hasta que el incidente está contenido y no puede propagarse más."
+        },
+        {
+          "front": "Dwell Time",
+          "back": "Tiempo que un adversario permanece sin ser detectado en la red. Promedio global ~24 días (2023). APTs pueden ser >200 días."
+        },
+        {
+          "front": "False Positive Rate",
+          "back": "Porcentaje de alertas que resultan ser falsos positivos. Alto FPR causa alert fatigue. Objetivo: <10%."
+        }
+      ]
+    },
+    {
+      "id": "threats",
+      "name": "Amenazas Comunes",
+      "cards": [
+        {
+          "front": "Ransomware",
+          "back": "Malware que encripta archivos y exige rescate. Familias: REvil, Conti, LockBit, BlackCat. Impacto: $20B+ en 2021."
+        },
+        {
+          "front": "APT",
+          "back": "Advanced Persistent Threat - Adversario sofisticado (nation-state, cibercrimen organizado) con objetivos de largo plazo y recursos."
+        },
+        {
+          "front": "Phishing",
+          "back": "Vector de ataque #1. Emails/mensajes fraudulentos para robar credenciales o instalar malware. Spear phishing es dirigido."
+        },
+        {
+          "front": "DDoS",
+          "back": "Distributed Denial of Service - Inundar objetivo con tráfico para hacerlo inaccesible. Amplificación DNS, botnets, layer 7 attacks."
+        },
+        {
+          "front": "Zero-Day",
+          "back": "Vulnerabilidad desconocida por el vendor (0 días para parchear). Muy valorada por APTs. Ej: Stuxnet, Equifax CVE-2017-5638."
+        },
+        {
+          "front": "Insider Threat",
+          "back": "Amenaza desde dentro: empleado malicioso, negligente o comprometido. 34% de breaches involucran insiders (Verizon DBIR)."
+        },
+        {
+          "front": "Supply Chain Attack",
+          "back": "Comprometer proveedor para atacar clientes downstream. Ej: SolarWinds (Orion), Kaseya VSA, Log4Shell."
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Herramientas SOC",
+      "cards": [
+        {
+          "front": "IDS/IPS",
+          "back": "Intrusion Detection/Prevention System - Monitorea tráfico de red en busca de patrones maliciosos. IDS alerta, IPS bloquea."
+        },
+        {
+          "front": "WAF",
+          "back": "Web Application Firewall - Protege apps web filtrando tráfico HTTP. Previene OWASP Top 10: SQLi, XSS, etc."
+        },
+        {
+          "front": "SOAR",
+          "back": "Security Orchestration, Automation and Response - Automatiza workflows de IR, integra herramientas, ejecuta playbooks."
+        },
+        {
+          "front": "Threat Intel Platform",
+          "back": "Agrega feeds de inteligencia (IOCs, TTPs), enriquece alertas, prioriza amenazas. Ej: MISP, ThreatConnect, Anomali."
+        },
+        {
+          "front": "Sandbox",
+          "back": "Entorno aislado para ejecutar archivos sospechosos y analizar comportamiento. Detecta malware desconocido (behavorial analysis)."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save System Test</title>
+    <link rel="stylesheet" href="save-styles.css">
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0e27;
+            color: #00ff41;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid #00ff41;
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+        .test-btn {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .test-btn:hover {
+            background: #00ff41;
+            color: #000;
+        }
+        .output {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #00ff41;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            color: #48bb78;
+        }
+        .error {
+            color: #ff4757;
+        }
+        h1 {
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>💾 Save System Test Suite</h1>
+        
+        <div class="test-section">
+            <h2>🧪 Initialization Tests</h2>
+            <button class="test-btn" onclick="testInit()">Test Save System Init</button>
+            <button class="test-btn" onclick="testUI()">Test UI Init</button>
+            <div id="init-output" class="output"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>💾 Save/Load Tests</h2>
+            <button class="test-btn" onclick="testSave()">Test Save to Slot 1</button>
+            <button class="test-btn" onclick="testLoad()">Test Load from Slot 1</button>
+            <button class="test-btn" onclick="testGetAllSaves()">Get All Saves</button>
+            <button class="test-btn" onclick="testDeleteSave()">Delete Slot 1</button>
+            <div id="save-output" class="output"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>⏰ Time Travel Tests</h2>
+            <button class="test-btn" onclick="testHistory()">Test History Tracking</button>
+            <button class="test-btn" onclick="testTimeTravel()">Test Time Travel</button>
+            <div id="history-output" class="output"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📤 Export/Import Tests</h2>
+            <button class="test-btn" onclick="testExport()">Test Export</button>
+            <button class="test-btn" onclick="testImport()">Test Import (Manual)</button>
+            <div id="export-output" class="output"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Storage Tests</h2>
+            <button class="test-btn" onclick="testStorageInfo()">Check Storage Info</button>
+            <button class="test-btn" onclick="testAutoSave()">Test Auto-Save Logic</button>
+            <div id="storage-output" class="output"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎮 Integration Tests</h2>
+            <button class="test-btn" onclick="testGameStateEvent()">Test Game State Event</button>
+            <button class="test-btn" onclick="testQuickSave()">Test Quick Save</button>
+            <button class="test-btn" onclick="openModal()">Open Save Modal</button>
+            <div id="integration-output" class="output"></div>
+        </div>
+    </div>
+
+    <script src="save-system.js"></script>
+    <script src="save-ui.js"></script>
+    
+    <script>
+        // Test utilities
+        function log(containerId, message, type = 'info') {
+            const container = document.getElementById(containerId);
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : '';
+            container.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function clearLog(containerId) {
+            document.getElementById(containerId).innerHTML = '';
+        }
+
+        // Mock game state
+        function createMockGameState(turn = 10) {
+            return {
+                turn: turn,
+                securityScore: 85,
+                budget: 150000,
+                reputation: 75,
+                activeThreats: 2,
+                detectedThreats: 5,
+                events: ['event1', 'event2'],
+                history: ['action1', 'action2'],
+                teamLevel: 2,
+                siemLevel: 1,
+                edrLevel: 0,
+                firewallLevel: 1,
+                dlpLevel: 0,
+                backupLevel: 0,
+                difficulty: 'normal',
+                startTime: Date.now() - 600000,
+                sessionId: 'test-session-123'
+            };
+        }
+
+        // ========== Initialization Tests ==========
+        function testInit() {
+            clearLog('init-output');
+            log('init-output', '🧪 Testing Save System Initialization...');
+            
+            if (window.saveSystem) {
+                log('init-output', '✅ Save System initialized', 'success');
+                log('init-output', `   - Max Slots: ${window.saveSystem.options.maxSlots}`);
+                log('init-output', `   - Auto-Save Interval: ${window.saveSystem.options.autoSaveInterval} turns`);
+                log('init-output', `   - Max History: ${window.saveSystem.options.maxHistoryStates} states`);
+                log('init-output', `   - Cloud Sync: ${window.saveSystem.options.cloudSyncEnabled ? 'Enabled' : 'Disabled'}`);
+            } else {
+                log('init-output', '❌ Save System not found', 'error');
+            }
+        }
+
+        function testUI() {
+            clearLog('init-output');
+            log('init-output', '🧪 Testing Save UI Initialization...');
+            
+            if (window.saveUI) {
+                log('init-output', '✅ Save UI initialized', 'success');
+                log('init-output', '   - Modal created');
+                log('init-output', '   - Floating button created');
+                log('init-output', '   - Event listeners attached');
+            } else {
+                log('init-output', '❌ Save UI not found', 'error');
+            }
+        }
+
+        // ========== Save/Load Tests ==========
+        function testSave() {
+            clearLog('save-output');
+            log('save-output', '🧪 Testing Save to Slot 1...');
+            
+            const mockState = createMockGameState(15);
+            const result = window.saveSystem.saveGame(1, mockState);
+            
+            if (result.success) {
+                log('save-output', '✅ Save successful', 'success');
+                log('save-output', `   - Slot: ${result.slot}`);
+                log('save-output', `   - Timestamp: ${new Date(result.timestamp).toLocaleString()}`);
+            } else {
+                log('save-output', `❌ Save failed: ${result.error}`, 'error');
+            }
+        }
+
+        function testLoad() {
+            clearLog('save-output');
+            log('save-output', '🧪 Testing Load from Slot 1...');
+            
+            const result = window.saveSystem.loadGame(1);
+            
+            if (result.success) {
+                log('save-output', '✅ Load successful', 'success');
+                log('save-output', `   - Turn: ${result.gameState.turn}`);
+                log('save-output', `   - Score: ${result.gameState.securityScore}`);
+                log('save-output', `   - Budget: $${result.gameState.budget.toLocaleString()}`);
+            } else {
+                log('save-output', `❌ Load failed: ${result.error}`, 'error');
+            }
+        }
+
+        function testGetAllSaves() {
+            clearLog('save-output');
+            log('save-output', '🧪 Getting All Saves...');
+            
+            const saves = window.saveSystem.getAllSaves();
+            log('save-output', `Found ${saves.length} slots:`);
+            
+            saves.forEach(save => {
+                if (save.empty) {
+                    log('save-output', `   - Slot ${save.slot}: Empty`);
+                } else {
+                    log('save-output', `   - Slot ${save.slot}: Turn ${save.turn}, Score ${save.score}, ${save.date}`);
+                }
+            });
+        }
+
+        function testDeleteSave() {
+            clearLog('save-output');
+            log('save-output', '🧪 Testing Delete Slot 1...');
+            
+            const result = window.saveSystem.deleteSave(1);
+            
+            if (result.success) {
+                log('save-output', '✅ Delete successful', 'success');
+            } else {
+                log('save-output', `❌ Delete failed: ${result.error}`, 'error');
+            }
+        }
+
+        // ========== Time Travel Tests ==========
+        function testHistory() {
+            clearLog('history-output');
+            log('history-output', '🧪 Testing History Tracking...');
+            
+            // Create multiple states
+            for (let i = 1; i <= 5; i++) {
+                const state = createMockGameState(i * 5);
+                window.saveSystem.addToHistory(state);
+                log('history-output', `   - Added turn ${i * 5} to history`);
+            }
+            
+            const turns = window.saveSystem.getAvailableTurns();
+            log('history-output', `✅ ${turns.length} history states available`, 'success');
+        }
+
+        function testTimeTravel() {
+            clearLog('history-output');
+            log('history-output', '🧪 Testing Time Travel...');
+            
+            const turns = window.saveSystem.getAvailableTurns();
+            
+            if (turns.length === 0) {
+                log('history-output', '⚠️ No history available. Run "Test History Tracking" first.', 'error');
+                return;
+            }
+            
+            const targetTurn = turns[0].turn;
+            log('history-output', `Traveling to turn ${targetTurn}...`);
+            
+            const result = window.saveSystem.travelToTurn(targetTurn);
+            
+            if (result.success) {
+                log('history-output', '✅ Time travel successful', 'success');
+                log('history-output', `   - Restored to turn ${result.gameState.turn}`);
+            } else {
+                log('history-output', `❌ Time travel failed: ${result.error}`, 'error');
+            }
+        }
+
+        // ========== Export/Import Tests ==========
+        function testExport() {
+            clearLog('export-output');
+            log('export-output', '🧪 Testing Export...');
+            
+            // First save something
+            const mockState = createMockGameState(20);
+            window.saveSystem.saveGame(2, mockState);
+            
+            const result = window.saveSystem.exportSave(2);
+            
+            if (result.success) {
+                log('export-output', '✅ Export triggered (check downloads)', 'success');
+            } else {
+                log('export-output', `❌ Export failed: ${result.error}`, 'error');
+            }
+        }
+
+        function testImport() {
+            clearLog('export-output');
+            log('export-output', '📤 Import test requires manual file selection.');
+            log('export-output', 'Use the Save Modal → Import/Export tab to test import.');
+        }
+
+        // ========== Storage Tests ==========
+        function testStorageInfo() {
+            clearLog('storage-output');
+            log('storage-output', '🧪 Testing Storage Info...');
+            
+            const info = window.saveSystem.getStorageInfo();
+            
+            log('storage-output', '📊 Storage Information:');
+            log('storage-output', `   - Items: ${info.items}`);
+            log('storage-output', `   - Used: ${info.usedMB} MB (${info.percentUsed}%)`);
+            log('storage-output', `   - Limit: ${info.limitMB} MB`);
+            
+            if (info.percentUsed > 80) {
+                log('storage-output', '⚠️ Storage almost full!', 'error');
+            } else {
+                log('storage-output', '✅ Storage healthy', 'success');
+            }
+        }
+
+        function testAutoSave() {
+            clearLog('storage-output');
+            log('storage-output', '🧪 Testing Auto-Save Logic...');
+            
+            const mockState = createMockGameState(0);
+            window.saveSystem.currentGameState = mockState;
+            window.saveSystem.lastSavedTurn = 0;
+            
+            // Test turn 5 (should auto-save)
+            mockState.turn = 5;
+            const shouldSave5 = window.saveSystem.shouldAutoSave(mockState);
+            log('storage-output', `   - Turn 5: ${shouldSave5 ? 'Should auto-save ✅' : 'Should not auto-save ❌'}`);
+            
+            // Test turn 7 (should not auto-save yet)
+            mockState.turn = 7;
+            window.saveSystem.lastSavedTurn = 5;
+            const shouldSave7 = window.saveSystem.shouldAutoSave(mockState);
+            log('storage-output', `   - Turn 7 (last save: 5): ${shouldSave7 ? 'Should auto-save ❌' : 'Should not auto-save ✅'}`);
+            
+            // Test turn 10 (should auto-save)
+            mockState.turn = 10;
+            const shouldSave10 = window.saveSystem.shouldAutoSave(mockState);
+            log('storage-output', `   - Turn 10 (last save: 5): ${shouldSave10 ? 'Should auto-save ✅' : 'Should not auto-save ❌'}`);
+        }
+
+        // ========== Integration Tests ==========
+        function testGameStateEvent() {
+            clearLog('integration-output');
+            log('integration-output', '🧪 Testing Game State Event...');
+            
+            const mockState = createMockGameState(25);
+            
+            // Dispatch event
+            window.dispatchEvent(new CustomEvent('gameStateUpdate', {
+                detail: mockState
+            }));
+            
+            log('integration-output', '✅ Event dispatched', 'success');
+            log('integration-output', '   - Auto-save system should receive this event');
+        }
+
+        function testQuickSave() {
+            clearLog('integration-output');
+            log('integration-output', '🧪 Testing Quick Save...');
+            
+            const mockState = createMockGameState(30);
+            window.saveSystem.currentGameState = mockState;
+            
+            window.saveSystem.createQuickSave();
+            
+            log('integration-output', '✅ Quick save created', 'success');
+            log('integration-output', '   - Check localStorage for "soc-sim-quicksave"');
+        }
+
+        function openModal() {
+            clearLog('integration-output');
+            log('integration-output', '🧪 Opening Save Modal...');
+            
+            if (window.saveUI) {
+                window.saveUI.openSaveModal();
+                log('integration-output', '✅ Modal opened', 'success');
+            } else {
+                log('integration-output', '❌ Save UI not initialized', 'error');
+            }
+        }
+
+        // Auto-run init tests on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testInit();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

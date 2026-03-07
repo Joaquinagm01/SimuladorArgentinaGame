@@ -1,0 +1,360 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cyber Defense Simulator API",
+    "description": "RESTful API for the Cyber Defense Simulator game - manage SOC operations, make decisions, track security metrics",
+    "version": "1.0.0",
+    "contact": {
+      "name": "API Support",
+      "url": "https://github.com/Joaquinagm01/SimuladorArgentinaGame"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api",
+      "description": "Development server"
+    },
+    {
+      "url": "https://your-production-domain.com/api",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Game",
+      "description": "Game session management"
+    },
+    {
+      "name": "Decisions",
+      "description": "SOC decisions and actions"
+    },
+    {
+      "name": "Stats",
+      "description": "Statistics and analytics"
+    },
+    {
+      "name": "Auth",
+      "description": "Authentication endpoints"
+    }
+  ],
+  "paths": {
+    "/game/new": {
+      "post": {
+        "tags": ["Game"],
+        "summary": "Create new game session",
+        "description": "Initializes a new game session with default state",
+        "responses": {
+          "200": {
+            "description": "Game created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sessionId": {"type": "string"},
+                    "state": {"$ref": "#/components/schemas/GameState"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/{sessionId}/state": {
+      "get": {
+        "tags": ["Game"],
+        "summary": "Get current game state",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current game state",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/GameState"}
+              }
+            }
+          },
+          "404": {
+            "description": "Game not found"
+          }
+        }
+      }
+    },
+    "/game/{sessionId}/decisions": {
+      "get": {
+        "tags": ["Decisions"],
+        "summary": "Get available decisions",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["investigate", "respond", "upgrade", "team", "proactive"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available decisions"
+          }
+        }
+      }
+    },
+    "/game/{sessionId}/execute": {
+      "post": {
+        "tags": ["Decisions"],
+        "summary": "Execute a decision",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "decisionId": {"type": "string"}
+                },
+                "required": ["decisionId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Decision executed successfully"
+          },
+          "400": {
+            "description": "Invalid decision or validation error"
+          },
+          "404": {
+            "description": "Game not found"
+          }
+        }
+      }
+    },
+    "/leaderboard": {
+      "get": {
+        "tags": ["Stats"],
+        "summary": "Get leaderboard",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 500
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leaderboard data"
+          }
+        }
+      }
+    },
+    "/stats/global": {
+      "get": {
+        "tags": ["Stats"],
+        "summary": "Get global statistics",
+        "responses": {
+          "200": {
+            "description": "Global game statistics"
+          }
+        }
+      }
+    },
+    "/game/{sessionId}/history": {
+      "get": {
+        "tags": ["Game"],
+        "summary": "Get game history",
+        "description": "Returns decisions, events, and statistics for a game session",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Game history data"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {"type": "string", "minLength": 3, "maxLength": 50},
+                  "password": {"type": "string", "minLength": 6, "maxLength": 100},
+                  "email": {"type": "string", "format": "email"}
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "token": {"type": "string"},
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {"type": "integer"},
+                        "username": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or username taken"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {"type": "string"},
+                  "password": {"type": "string"}
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "token": {"type": "string"},
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {"type": "integer"},
+                        "username": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "System health status"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GameState": {
+        "type": "object",
+        "properties": {
+          "turn": {"type": "integer"},
+          "maxTurns": {"type": "integer"},
+          "gameOver": {"type": "boolean"},
+          "victory": {"type": "boolean"},
+          "securityScore": {"type": "integer"},
+          "budget": {"type": "integer"},
+          "reputation": {"type": "integer"},
+          "incomePerTurn": {"type": "integer"},
+          "serversInfected": {"type": "integer"},
+          "totalServers": {"type": "integer"},
+          "endpointsProtected": {"type": "integer"},
+          "activeThreats": {"type": "integer"},
+          "alertsQueue": {"type": "integer"},
+          "incidentsResolved": {"type": "integer"},
+          "attacksBlocked": {"type": "integer"},
+          "successfulBreaches": {"type": "integer"},
+          "mttd": {"type": "number"},
+          "mttr": {"type": "number"},
+          "iocDatabase": {"type": "integer"},
+          "mitreKnown": {"type": "integer"},
+          "analystsL1": {"type": "integer"},
+          "analystsL2": {"type": "integer"},
+          "threatHunters": {"type": "integer"},
+          "teamCapacity": {"type": "integer"},
+          "tools": {"type": "object"}
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

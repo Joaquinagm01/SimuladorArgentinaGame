@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Tutorial - Cyber Defense Simulator</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #00ff41;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #00ff41;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #00ff41;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7bed9f;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .tab-btn:hover {
+            background: #00ff41;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: #00ff41;
+            color: #0a0a0a;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #ff4136;
+            border: 2px solid #ff4136;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #ff4136;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        #content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        /* Markdown styling */
+        #content h1, #content h2, #content h3 {
+            color: #00ff41;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        #content h1 { font-size: 2em; border-bottom: 2px solid #00ff41; padding-bottom: 10px; }
+        #content h2 { font-size: 1.6em; border-bottom: 1px solid rgba(0, 255, 65, 0.3); padding-bottom: 8px; }
+        #content h3 { font-size: 1.3em; }
+
+        #content p {
+            margin-bottom: 15px;
+            color: #b8e994;
+        }
+
+        #content ul, #content ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+            color: #b8e994;
+        }
+
+        #content li {
+            margin-bottom: 8px;
+        }
+
+        #content code {
+            background: rgba(0, 255, 65, 0.1);
+            color: #00ff41;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        #content pre {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #00ff41;
+            margin-bottom: 15px;
+        }
+
+        #content pre code {
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
+
+        #content blockquote {
+            border-left: 4px solid #00ff41;
+            padding-left: 20px;
+            margin: 15px 0;
+            color: #7bed9f;
+            font-style: italic;
+        }
+
+        #content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 1px solid #00ff41;
+        }
+
+        #content th, #content td {
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 10px;
+            text-align: left;
+        }
+
+        #content th {
+            background: rgba(0, 255, 65, 0.2);
+            color: #00ff41;
+            font-weight: bold;
+        }
+
+        #content td {
+            color: #b8e994;
+        }
+
+        #content a {
+            color: #00d4ff;
+            text-decoration: underline;
+        }
+
+        #content a:hover {
+            color: #00ff41;
+        }
+
+        #content strong {
+            color: #00ff41;
+            font-weight: bold;
+        }
+
+        #content em {
+            color: #ffd93d;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.5em;
+            padding: 50px;
+            color: #00ff41;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 DOCUMENTACIÓN</h1>
+            <p>Cyber Defense Simulator</p>
+        </div>
+
+        <a href="soc-dashboard.html" class="back-btn">← Volver al Juego</a>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-file="INICIO_RAPIDO.md">🚀 Inicio Rápido</button>
+            <button class="tab-btn" data-file="TUTORIAL.md">📖 Tutorial Completo</button>
+            <button class="tab-btn" data-file="MODO_FACIL.md">🎓 Modo Fácil</button>
+            <button class="tab-btn" data-file="README.md">📋 README</button>
+        </div>
+
+        <div id="content" class="loading">
+            Cargando documentación...
+        </div>
+    </div>
+
+    <script>
+        // Configure marked options
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true,
+            mangle: false
+        });
+
+        // Load markdown file and render
+        async function loadMarkdown(filename) {
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading">⏳ Cargando...</div>';
+
+            try {
+                const response = await fetch(filename);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const markdown = await response.text();
+                const html = marked.parse(markdown);
+                content.innerHTML = html;
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                content.innerHTML = `
+                    <div style="color: #ff4136; text-align: center; padding: 50px;">
+                        <h2>❌ Error al cargar el archivo</h2>
+                        <p>No se pudo cargar ${filename}</p>
+                        <p style="font-size: 0.9em; margin-top: 20px;">Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Tab navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Load the corresponding file
+                const filename = this.getAttribute('data-file');
+                loadMarkdown(filename);
+            });
+        });
+
+        // Load default file on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMarkdown('INICIO_RAPIDO.md');
+        });
+    </script>
+</body>
+</html>

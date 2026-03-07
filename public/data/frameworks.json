@@ -1,0 +1,355 @@
+{
+  "frameworks": {
+    "mitre": {
+      "name": "MITRE ATT&CK",
+      "url": "https://attack.mitre.org/",
+      "description": "Knowledge base of adversary tactics and techniques",
+      "techniques": {
+        "T1190": {
+          "name": "Exploit Public-Facing Application",
+          "tactic": "Initial Access",
+          "description": "Attackers exploit vulnerabilities in internet-facing applications"
+        },
+        "T1059": {
+          "name": "Command and Scripting Interpreter",
+          "tactic": "Execution",
+          "description": "Abuse command and script interpreters to execute commands"
+        },
+        "T1071": {
+          "name": "Application Layer Protocol",
+          "tactic": "Command and Control",
+          "description": "Use application layer protocols for C2 communication"
+        },
+        "T1486": {
+          "name": "Data Encrypted for Impact",
+          "tactic": "Impact",
+          "description": "Encrypt data on systems to interrupt availability (ransomware)"
+        },
+        "T1566": {
+          "name": "Phishing",
+          "tactic": "Initial Access",
+          "description": "Send phishing messages to gain access"
+        },
+        "T1078": {
+          "name": "Valid Accounts",
+          "tactic": "Initial Access",
+          "description": "Use stolen credentials to gain initial access"
+        },
+        "T1562": {
+          "name": "Impair Defenses",
+          "tactic": "Defense Evasion",
+          "description": "Prevent or disable security tools"
+        },
+        "T1087": {
+          "name": "Account Discovery",
+          "tactic": "Discovery",
+          "description": "Identify accounts on a system"
+        }
+      }
+    },
+    "cis": {
+      "name": "CIS Critical Security Controls",
+      "url": "https://www.cisecurity.org/controls",
+      "description": "Prioritized set of actions for cyber defense",
+      "controls": {
+        "1": {
+          "name": "Inventory and Control of Enterprise Assets",
+          "description": "Actively manage all enterprise assets connected to infrastructure"
+        },
+        "2": {
+          "name": "Inventory and Control of Software Assets",
+          "description": "Actively manage all software on the network"
+        },
+        "6": {
+          "name": "Access Control Management",
+          "description": "Use processes and tools to track/control access to assets"
+        },
+        "8": {
+          "name": "Audit Log Management",
+          "description": "Collect, manage, and analyze audit logs"
+        },
+        "10": {
+          "name": "Malware Defenses",
+          "description": "Control installation, spread, and execution of malware"
+        },
+        "13": {
+          "name": "Network Monitoring and Defense",
+          "description": "Operate processes and tooling to establish defenses"
+        },
+        "16": {
+          "name": "Application Software Security",
+          "description": "Manage security lifecycle of software"
+        },
+        "17": {
+          "name": "Incident Response Management",
+          "description": "Establish incident response capabilities"
+        }
+      }
+    },
+    "nist": {
+      "name": "NIST Cybersecurity Framework",
+      "url": "https://www.nist.gov/cyberframework",
+      "description": "Framework for managing cybersecurity risk",
+      "functions": {
+        "identify": {
+          "name": "Identify",
+          "description": "Develop understanding of managing cybersecurity risk",
+          "categories": ["Asset Management", "Risk Assessment", "Governance"]
+        },
+        "protect": {
+          "name": "Protect",
+          "description": "Develop and implement safeguards",
+          "categories": ["Access Control", "Data Security", "Protective Technology"]
+        },
+        "detect": {
+          "name": "Detect",
+          "description": "Develop and implement activities to identify cybersecurity events",
+          "categories": ["Anomalies and Events", "Security Continuous Monitoring"]
+        },
+        "respond": {
+          "name": "Respond",
+          "description": "Develop and implement activities to take action",
+          "categories": ["Response Planning", "Communications", "Analysis", "Mitigation"]
+        },
+        "recover": {
+          "name": "Recover",
+          "description": "Develop and implement activities to restore capabilities",
+          "categories": ["Recovery Planning", "Improvements", "Communications"]
+        }
+      }
+    },
+    "iso27001": {
+      "name": "ISO/IEC 27001",
+      "url": "https://www.iso.org/isoiec-27001-information-security.html",
+      "description": "International standard for information security management",
+      "controls": {
+        "A.5": "Information Security Policies",
+        "A.6": "Organization of Information Security",
+        "A.8": "Asset Management",
+        "A.9": "Access Control",
+        "A.12": "Operations Security",
+        "A.13": "Communications Security",
+        "A.14": "System Acquisition, Development and Maintenance",
+        "A.16": "Information Security Incident Management",
+        "A.17": "Business Continuity Management",
+        "A.18": "Compliance"
+      }
+    },
+    "killchain": {
+      "name": "Cyber Kill Chain",
+      "url": "https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html",
+      "description": "Phases of a cyber attack (Lockheed Martin)",
+      "phases": [
+        {
+          "phase": "Reconnaissance",
+          "description": "Research, identification and selection of targets",
+          "example": "Scanning networks, social media research"
+        },
+        {
+          "phase": "Weaponization",
+          "description": "Coupling exploit with backdoor into deliverable payload",
+          "example": "Creating malicious document with embedded exploit"
+        },
+        {
+          "phase": "Delivery",
+          "description": "Transmission of weapon to targeted environment",
+          "example": "Email attachment, USB drive, compromised website"
+        },
+        {
+          "phase": "Exploitation",
+          "description": "Triggering the exploit vulnerability",
+          "example": "Buffer overflow, SQL injection, zero-day exploit"
+        },
+        {
+          "phase": "Installation",
+          "description": "Installation of malware on target system",
+          "example": "Backdoor, RAT, persistence mechanism"
+        },
+        {
+          "phase": "Command & Control",
+          "description": "Command channel for remote manipulation",
+          "example": "C2 server communication, beaconing"
+        },
+        {
+          "phase": "Actions on Objectives",
+          "description": "Intruders accomplish their goals",
+          "example": "Data exfiltration, lateral movement, destruction"
+        }
+      ]
+    },
+    "owasp": {
+      "name": "OWASP Top 10",
+      "url": "https://owasp.org/www-project-top-ten/",
+      "description": "Top 10 web application security risks",
+      "risks": [
+        {
+          "rank": "A01",
+          "name": "Broken Access Control",
+          "description": "Restrictions on what authenticated users can do not properly enforced",
+          "example": "Viewing others' accounts, modifying data"
+        },
+        {
+          "rank": "A02",
+          "name": "Cryptographic Failures",
+          "description": "Failures related to cryptography leading to sensitive data exposure",
+          "example": "Transmitting data in clear text, weak algorithms"
+        },
+        {
+          "rank": "A03",
+          "name": "Injection",
+          "description": "Hostile data sent to an interpreter as part of command or query",
+          "example": "SQL injection, NoSQL injection, OS command injection"
+        },
+        {
+          "rank": "A04",
+          "name": "Insecure Design",
+          "description": "Missing or ineffective control design",
+          "example": "Lack of rate limiting, weak authentication flows"
+        },
+        {
+          "rank": "A05",
+          "name": "Security Misconfiguration",
+          "description": "Missing appropriate security hardening",
+          "example": "Default credentials, verbose error messages"
+        },
+        {
+          "rank": "A06",
+          "name": "Vulnerable and Outdated Components",
+          "description": "Using components with known vulnerabilities",
+          "example": "Unpatched libraries, deprecated APIs"
+        },
+        {
+          "rank": "A07",
+          "name": "Identification and Authentication Failures",
+          "description": "Confirmation of user identity, authentication fails",
+          "example": "Weak passwords, credential stuffing"
+        },
+        {
+          "rank": "A08",
+          "name": "Software and Data Integrity Failures",
+          "description": "Code and infrastructure not protected against integrity violations",
+          "example": "Unsigned updates, insecure CI/CD pipeline"
+        },
+        {
+          "rank": "A09",
+          "name": "Security Logging and Monitoring Failures",
+          "description": "Insufficient logging and monitoring",
+          "example": "Not logging login failures, delayed detection"
+        },
+        {
+          "rank": "A10",
+          "name": "Server-Side Request Forgery (SSRF)",
+          "description": "Fetching remote resources without validating user-supplied URL",
+          "example": "Access internal services, port scanning"
+        }
+      ]
+    }
+  },
+  "decisionMappings": {
+    "analyze_siem": {
+      "cis": ["8", "13"],
+      "nist": ["detect"],
+      "iso27001": ["A.12", "A.16"],
+      "mitre": ["T1071"]
+    },
+    "block_ips": {
+      "cis": ["13"],
+      "nist": ["respond"],
+      "iso27001": ["A.13", "A.16"],
+      "mitre": ["T1071"]
+    },
+    "isolate_endpoints": {
+      "cis": ["10", "13"],
+      "nist": ["respond"],
+      "iso27001": ["A.12", "A.16"],
+      "mitre": ["T1486"]
+    },
+    "deploy_ids": {
+      "cis": ["13"],
+      "nist": ["detect", "protect"],
+      "iso27001": ["A.12", "A.13"],
+      "mitre": ["T1190"]
+    },
+    "upgrade_siem": {
+      "cis": ["8", "13"],
+      "nist": ["detect"],
+      "iso27001": ["A.12"],
+      "mitre": []
+    },
+    "deploy_edr": {
+      "cis": ["10"],
+      "nist": ["detect", "respond"],
+      "iso27001": ["A.12"],
+      "mitre": ["T1059", "T1562"]
+    },
+    "phishing_awareness": {
+      "cis": ["16"],
+      "nist": ["protect"],
+      "iso27001": ["A.5", "A.6"],
+      "mitre": ["T1566"],
+      "owasp": ["A07"]
+    }
+  },
+  "certifications": [
+    {
+      "name": "CISSP",
+      "fullName": "Certified Information Systems Security Professional",
+      "provider": "ISC²",
+      "level": "Advanced",
+      "experience": "5+ years",
+      "cost": "$749",
+      "description": "Gold standard for security professionals, covers 8 domains",
+      "url": "https://www.isc2.org/Certifications/CISSP"
+    },
+    {
+      "name": "CISM",
+      "fullName": "Certified Information Security Manager",
+      "provider": "ISACA",
+      "level": "Advanced",
+      "experience": "5+ years management",
+      "cost": "$575",
+      "description": "For security managers, focuses on governance and risk",
+      "url": "https://www.isaca.org/credentialing/cism"
+    },
+    {
+      "name": "CEH",
+      "fullName": "Certified Ethical Hacker",
+      "provider": "EC-Council",
+      "level": "Intermediate",
+      "experience": "2+ years",
+      "cost": "$1,199",
+      "description": "Learn to think like a hacker, penetration testing skills",
+      "url": "https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/"
+    },
+    {
+      "name": "OSCP",
+      "fullName": "Offensive Security Certified Professional",
+      "provider": "Offensive Security",
+      "level": "Advanced",
+      "experience": "3+ years",
+      "cost": "$1,649",
+      "description": "Hands-on penetration testing, 24-hour practical exam",
+      "url": "https://www.offensive-security.com/pwk-oscp/"
+    },
+    {
+      "name": "Security+",
+      "fullName": "CompTIA Security+",
+      "provider": "CompTIA",
+      "level": "Entry",
+      "experience": "0-2 years",
+      "cost": "$392",
+      "description": "Foundation level, great for SOC analysts starting out",
+      "url": "https://www.comptia.org/certifications/security"
+    },
+    {
+      "name": "GCIH",
+      "fullName": "GIAC Certified Incident Handler",
+      "provider": "GIAC",
+      "level": "Intermediate",
+      "experience": "2-3 years",
+      "cost": "$979",
+      "description": "Incident handling and computer forensics",
+      "url": "https://www.giac.org/certifications/certified-incident-handler-gcih/"
+    }
+  ]
+}

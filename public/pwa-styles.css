@@ -1,0 +1,416 @@
+/**
+ * PWA Styles - Install Prompt, Notifications, Updates
+ */
+
+/* ==================== Install Prompt ==================== */
+
+.pwa-install-prompt {
+  position: fixed;
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 500px;
+  width: 90%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  z-index: 10001;
+  transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: slideUpPWA 0.5s ease forwards 1s;
+}
+
+@keyframes slideUpPWA {
+  to {
+    bottom: 20px;
+  }
+}
+
+.pwa-install-prompt-show {
+  bottom: 20px !important;
+}
+
+.pwa-install-content {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.pwa-install-icon {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.pwa-install-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.pwa-install-text h3 {
+  margin: 0 0 5px 0;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pwa-install-text p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pwa-install-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pwa-install-btn {
+  flex: 1;
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pwa-install-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.pwa-dismiss-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pwa-dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== Update Banner ==================== */
+
+.pwa-update-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #ed8936;
+  color: white;
+  z-index: 10002;
+  animation: slideDownBanner 0.4s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideDownBanner {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.pwa-update-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 20px;
+  flex-wrap: wrap;
+}
+
+.pwa-update-content span {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.pwa-update-btn {
+  background: white;
+  color: #ed8936;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pwa-update-btn:hover {
+  transform: scale(1.05);
+}
+
+.pwa-update-banner .pwa-dismiss-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pwa-update-banner .pwa-dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== Toast Notifications ==================== */
+
+.pwa-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 10003;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  text-align: center;
+}
+
+.pwa-toast-show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ==================== PWA Status Indicator ==================== */
+
+.pwa-status-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 255, 65, 0.9);
+  color: #0a0e27;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  z-index: 1001;
+  display: none;
+}
+
+body.pwa-installed .pwa-status-indicator {
+  display: block;
+}
+
+/* ==================== Offline Indicator ==================== */
+
+.offline-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #f56565;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  z-index: 10000;
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+}
+
+body.offline .offline-indicator {
+  transform: translateY(0);
+}
+
+/* ==================== Loading Skeleton (for lazy loading) ==================== */
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-text {
+  height: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.skeleton-heading {
+  height: 24px;
+  margin-bottom: 12px;
+  width: 70%;
+}
+
+.skeleton-button {
+  height: 40px;
+  width: 120px;
+  border-radius: 8px;
+}
+
+.skeleton-card {
+  height: 200px;
+  border-radius: 12px;
+}
+
+/* ==================== Lazy Load Images ==================== */
+
+img[data-src] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[data-loaded="true"] {
+  opacity: 1;
+}
+
+.lazy-image-placeholder {
+  background: #f0f0f0;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+}
+
+/* ==================== Responsive PWA Styles ==================== */
+
+@media (max-width: 768px) {
+  .pwa-install-prompt {
+    width: 95%;
+    bottom: -300px;
+  }
+  
+  .pwa-install-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .pwa-install-icon {
+    font-size: 56px;
+  }
+  
+  .pwa-install-actions {
+    flex-direction: column;
+  }
+  
+  .pwa-install-btn,
+  .pwa-dismiss-btn {
+    width: 100%;
+  }
+  
+  .pwa-toast {
+    width: 90%;
+    max-width: none;
+  }
+  
+  .pwa-update-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pwa-install-text h3 {
+    font-size: 16px;
+  }
+  
+  .pwa-install-text p {
+    font-size: 13px;
+  }
+  
+  .pwa-install-btn,
+  .pwa-dismiss-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* ==================== PWA Display Mode Adjustments ==================== */
+
+@media (display-mode: standalone) {
+  /* Hide install prompt when running as PWA */
+  .pwa-install-prompt {
+    display: none !important;
+  }
+  
+  /* Add safe area padding for notched devices */
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ==================== Splash Screen (iOS) ==================== */
+
+@media (display-mode: standalone) and (-webkit-min-device-pixel-ratio: 2) {
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* ==================== Performance Optimizations ==================== */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .pwa-install-prompt,
+  .pwa-update-banner,
+  .pwa-toast,
+  .skeleton {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pwa-install-prompt {
+    border: 2px solid white;
+  }
+  
+  .pwa-install-btn,
+  .pwa-update-btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background: linear-gradient(90deg, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%);
+  }
+  
+  .lazy-image-placeholder {
+    background: #1a1a1a;
+    color: #666;
+  }
+}

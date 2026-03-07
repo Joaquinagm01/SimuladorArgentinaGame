@@ -1,0 +1,148 @@
+{
+  "faqs": [
+    {
+      "question": "¿Qué significa Security Score?",
+      "answer": "El Security Score representa la postura general de seguridad de tu organización. Va de 0 a 100 y se ve afectado por servidores infectados, amenazas activas y la efectividad de tu equipo SOC.",
+      "category": "Gameplay"
+    },
+    {
+      "question": "¿Cómo aumento mi presupuesto?",
+      "answer": "Tu presupuesto aumenta cada turno mediante ingresos pasivos. Mantén alta tu reputación para recibir más fondos. También puedes conseguir bonos completando objetivos o mejorando tu Security Score.",
+      "category": "Resources"
+    },
+    {
+      "question": "¿Cuál es la diferencia entre analistas L1, L2 y Threat Hunters?",
+      "answer": "L1 procesa alertas básicas (1 por turno), L2 maneja casos complejos (2 por turno), y Threat Hunters buscan proactivamente amenazas (3 por turno). Cada nivel es más costoso pero más efectivo.",
+      "category": "Team"
+    },
+    {
+      "question": "¿Por qué perdí el juego?",
+      "answer": "Puedes perder si: 1) Security Score < 20, 2) Budget < $10,000, 3) >70% servidores infectados, o 4) Reputation < 10. Monitorea estos indicadores constantemente.",
+      "category": "Game Over"
+    },
+    {
+      "question": "¿Qué es MITRE ATT&CK?",
+      "answer": "MITRE ATT&CK es un framework que documenta tácticas y técnicas usadas por atacantes reales. Aprender estos patrones te ayuda a anticipar y defender contra amenazas.",
+      "category": "Education"
+    },
+    {
+      "question": "¿Cuándo debo priorizar investigación vs respuesta?",
+      "answer": "Investiga primero cuando no estés seguro de la amenaza. Responde rápido cuando identifiques un ataque activo. Balancea ambos para mantener control de la situación.",
+      "category": "Strategy"
+    },
+    {
+      "question": "¿Vale la pena invertir en herramientas caras?",
+      "answer": "Sí, a largo plazo. Un SIEM reduce tu MTTD, EDR bloquea malware automáticamente, y Threat Intel te da visibilidad temprana. Prioriza según tu mayor debilidad.",
+      "category": "Tools"
+    },
+    {
+      "question": "¿Qué hago cuando tengo muchas alertas en cola?",
+      "answer": "Contrata más analistas o mejora tu automatización con SOAR. Las alertas sin procesar se acumulan y pueden ocultar amenazas críticas.",
+      "category": "Operations"
+    },
+    {
+      "question": "¿Cómo mejoro mi MTTD y MTTR?",
+      "answer": "MTTD mejora con SIEM, Threat Intel y Threat Hunters. MTTR mejora con SOAR, runbooks y un equipo bien entrenado. Ambos son KPIs críticos en un SOC real.",
+      "category": "Metrics"
+    },
+    {
+      "question": "¿Los eventos son completamente aleatorios?",
+      "answer": "No, tienen probabilidades basadas en tu Security Score y decisiones previas. Mejorando tu postura de seguridad reduces la frecuencia y severidad de ataques.",
+      "category": "Gameplay"
+    }
+  ],
+  "caseStudies": [
+    {
+      "title": "Sony Pictures (2014)",
+      "description": "APT ataca Sony en represalia por película. Robaron 100TB de datos y borraron sistemas.",
+      "lessons": [
+        "Backup offline es crítico",
+        "Segmentación de red previene propagación",
+        "Threat Intelligence sobre geopolítica ayuda"
+      ],
+      "mitreTechniques": ["T1486 - Data Destruction", "T1005 - Data from Local System"],
+      "cost": "$15 millones en recuperación",
+      "impact": "Reputación dañada permanentemente"
+    },
+    {
+      "title": "Equifax (2017)",
+      "description": "Vulnerabilidad en Apache Struts sin parchear. 143 millones de registros comprometidos.",
+      "lessons": [
+        "Patch management es fundamental",
+        "Monitoreo de CVEs críticas",
+        "Cifrado de datos sensibles"
+      ],
+      "mitreTechniques": ["T1190 - Exploit Public-Facing Application"],
+      "cost": "$1.4 mil millones en multas y costos",
+      "impact": "CEO y CSO renunciaron"
+    },
+    {
+      "title": "WannaCry Ransomware (2017)",
+      "description": "Ransomware global usando exploit EternalBlue. Afectó 200,000+ computadoras en 150 países.",
+      "lessons": [
+        "Actualizar sistemas legacy (Windows 7/XP)",
+        "Segmentar redes críticas",
+        "Plan de ransomware con backups"
+      ],
+      "mitreTechniques": ["T1486 - Encrypt Data", "T1210 - Lateral Tool Transfer"],
+      "cost": "$4 mil millones globalmente",
+      "impact": "Hospitales cancelaron cirugías"
+    },
+    {
+      "title": "SolarWinds (2020)",
+      "description": "Supply chain attack vía update de Orion. APT29 comprometió 18,000 organizaciones.",
+      "lessons": [
+        "Validar integridad de software",
+        "Monitorear tráfico de management tools",
+        "Zero Trust architecture"
+      ],
+      "mitreTechniques": ["T1195 - Supply Chain Compromise", "T1071 - Application Layer Protocol"],
+      "cost": "$100+ millones en remediation",
+      "impact": "Acceso a redes gubernamentales"
+    },
+    {
+      "title": "Colonial Pipeline (2021)",
+      "description": "Ransomware DarkSide cerró oleoducto principal de EE.UU. durante 5 días.",
+      "lessons": [
+        "OT/IT segmentation critical",
+        "MFA en accesos VPN",
+        "Incident response plan testado"
+      ],
+      "mitreTechniques": ["T1486 - Encrypt", "T1133 - External Remote Services"],
+      "cost": "$4.4 millones pagados en ransom",
+      "impact": "Crisis nacional de combustible"
+    }
+  ],
+  "bestPractices": [
+    {
+      "title": "Prioriza según impacto al negocio",
+      "description": "No todas las alertas son iguales. Enfócate en amenazas que afectan sistemas críticos primero.",
+      "icon": "🎯"
+    },
+    {
+      "title": "Automatiza tareas repetitivas",
+      "description": "Usa SOAR para bloqueos automáticos, enrichment de alertas y respuestas básicas. Libera tiempo de analistas.",
+      "icon": "🤖"
+    },
+    {
+      "title": "Documenta todo en runbooks",
+      "description": "Cada tipo de incidente debe tener un playbook. Reduce MTTR y errores humanos.",
+      "icon": "📚"
+    },
+    {
+      "title": "Threat Hunting proactivo",
+      "description": "No esperes a que suene la alarma. Busca anomalías, comportamientos raros y TTPs conocidos.",
+      "icon": "🔍"
+    },
+    {
+      "title": "Comunicación con stakeholders",
+      "description": "Explica riesgos en términos de negocio. El Board necesita entender impacto, no solo detalles técnicos.",
+      "icon": "💼"
+    },
+    {
+      "title": "Aprende de cada incidente",
+      "description": "Post-mortem después de cada caso mayor. ¿Qué funcionó? ¿Qué falló? ¿Cómo mejorar?",
+      "icon": "📝"
+    }
+  ]
+}

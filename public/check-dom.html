@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Verificación de Elementos DOM</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .check { color: #00ff41; }
+        .cross { color: #ff3366; }
+        .section {
+            background: #1a1a1a;
+            border: 1px solid #00ff41;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        h2 { color: #00ccff; }
+        button {
+            background: #00ff41;
+            color: #0a0a0a;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover { background: #00ccff; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Verificación de Elementos DOM</h1>
+    <p>Esta página verifica que todos los elementos necesarios existan en soc-dashboard.html</p>
+    
+    <button onclick="runChecks()">▶️ EJECUTAR VERIFICACIÓN</button>
+    <div id="results"></div>
+
+    <script>
+        function check(elementId, description) {
+            const exists = document.getElementById(elementId) !== null;
+            const icon = exists ? '✅' : '❌';
+            const className = exists ? 'check' : 'cross';
+            return `<div class="${className}">${icon} ${description} (<code>id="${elementId}"</code>)</div>`;
+        }
+
+        function checkQuery(selector, description) {
+            const count = document.querySelectorAll(selector).length;
+            const exists = count > 0;
+            const icon = exists ? '✅' : '❌';
+            const className = exists ? 'check' : 'cross';
+            return `<div class="${className}">${icon} ${description} (<code>${selector}</code>) - ${count} encontrado(s)</div>`;
+        }
+
+        function runChecks() {
+            let html = '';
+
+            // PANTALLA DE INICIO
+            html += '<div class="section">';
+            html += '<h2>🎮 Pantalla de Inicio</h2>';
+            html += check('matrix-bg', 'Canvas de Matrix');
+            html += check('start-screen', 'Pantalla de inicio');
+            html += check('start-btn', 'Botón INITIALIZE SOC');
+            html += '</div>';
+
+            // PANTALLA DE JUEGO
+            html += '<div class="section">';
+            html += '<h2>🎯 Pantalla de Juego</h2>';
+            html += check('game-screen', 'Pantalla de juego');
+            html += check('restart-btn', 'Botón Restart');
+            html += '</div>';
+
+            // HEADER
+            html += '<div class="section">';
+            html += '<h2>📊 Header Stats</h2>';
+            html += check('turn', 'Turno');
+            html += check('security-score', 'Security Score');
+            html += check('budget', 'Budget compacto');
+            html += check('reputation', 'Reputation');
+            html += '</div>';
+
+            // PANEL ECONÓMICO
+            html += '<div class="section">';
+            html += '<h2>💰 Panel Económico</h2>';
+            html += check('budget-full', 'Presupuesto completo');
+            html += check('income-display', 'Ingresos por turno');
+            html += check('total-spent', 'Gastos totales');
+            html += check('tools-roi', 'ROI de herramientas');
+            html += '</div>';
+
+            // PANEL DE ESTADO
+            html += '<div class="section">';
+            html += '<h2>🚨 Panel de Estado</h2>';
+            html += check('active-threats', 'Amenazas activas');
+            html += check('alerts-queue', 'Alertas pendientes');
+            html += check('incidents-resolved', 'Incidentes resueltos');
+            html += check('team-capacity', 'Capacidad del equipo');
+            html += '</div>';
+
+            // EVENT LOG
+            html += '<div class="section">';
+            html += '<h2>📋 Event Log</h2>';
+            html += check('event-log', 'Contenedor de log');
+            html += check('clear-log-btn', 'Botón limpiar log');
+            html += '</div>';
+
+            // SUGERENCIAS
+            html += '<div class="section">';
+            html += '<h2>💡 Panel de Sugerencias</h2>';
+            html += check('suggestion-panel', 'Panel de sugerencias');
+            html += check('suggestion-text', 'Texto de sugerencia');
+            html += '</div>';
+
+            // SISTEMA DE TABS
+            html += '<div class="section">';
+            html += '<h2>🎯 Sistema de Tabs</h2>';
+            html += checkQuery('.tabs-container', 'Contenedor de tabs');
+            html += checkQuery('.tab-btn', 'Botones de tabs');
+            html += checkQuery('.tab-panel', 'Paneles de tabs');
+            html += check('tab-investigate', 'Tab Investigate');
+            html += check('tab-respond', 'Tab Respond');
+            html += check('tab-upgrade', 'Tab Upgrade');
+            html += check('tab-team', 'Tab Team');
+            html += check('tab-proactive', 'Tab Proactive');
+            html += check('decisions-investigate', 'Contenedor decisiones Investigate');
+            html += check('decisions-respond', 'Contenedor decisiones Respond');
+            html += check('decisions-upgrade', 'Contenedor decisiones Upgrade');
+            html += check('decisions-team', 'Contenedor decisiones Team');
+            html += check('decisions-proactive', 'Contenedor decisiones Proactive');
+            html += '</div>';
+
+            // SISTEMA DE AYUDA
+            html += '<div class="section">';
+            html += '<h2>❓ Sistema de Ayuda</h2>';
+            html += check('help-modal', 'Modal de ayuda');
+            html += check('help-modal-close', 'Botón cerrar modal');
+            html += check('help-modal-title', 'Título del modal');
+            html += check('help-modal-body', 'Cuerpo del modal');
+            html += checkQuery('.help-btn', 'Botones de ayuda');
+            html += '</div>';
+
+            // PANTALLAS FINALES
+            html += '<div class="section">';
+            html += '<h2>🏁 Pantallas Finales</h2>';
+            html += check('gameover-screen', 'Pantalla Game Over');
+            html += check('victory-screen', 'Pantalla Victoria');
+            html += check('victory-restart-btn', 'Botón restart victoria');
+            html += '</div>';
+
+            document.getElementById('results').innerHTML = html;
+        }
+
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            setTimeout(runChecks, 500);
+        });
+    </script>
+</body>
+</html>

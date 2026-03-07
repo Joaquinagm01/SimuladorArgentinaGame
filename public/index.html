@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇦🇷 Simulador Argentina 2001</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Pantalla de inicio -->
+        <div id="start-screen" class="screen active">
+            <div class="title-container">
+                <h1 class="pixel-title">🇦🇷</h1>
+                <h2 class="pixel-title">ARGENTINA 2001</h2>
+                <p class="subtitle">SIMULADOR DE CRISIS</p>
+            </div>
+            <button id="start-btn" class="pixel-btn">PRESIONA START</button>
+            <div class="credits">
+                <p>Un juego sobre sobrevivir la crisis</p>
+                <p class="blink">▶ PRESS START ◀</p>
+            </div>
+        </div>
+
+        <!-- Pantalla del juego -->
+        <div id="game-screen" class="screen">
+            <!-- Header con stats -->
+            <div class="game-header">
+                <div class="stat-box">
+                    <span class="stat-label">TURNO</span>
+                    <span id="turn" class="stat-value">1</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">PBI</span>
+                    <span id="pbi" class="stat-value">100</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">RESERVAS</span>
+                    <span id="reservas" class="stat-value">50</span>
+                </div>
+            </div>
+
+            <!-- Panel de economía -->
+            <div class="economy-panel">
+                <div class="economy-item">
+                    <span>💰 Deuda:</span>
+                    <div class="progress-bar">
+                        <div id="bar-deuda" class="progress-fill" style="width: 50%"></div>
+                        <span id="val-deuda" class="progress-text">100</span>
+                    </div>
+                </div>
+                <div class="economy-item">
+                    <span>📉 Desempleo:</span>
+                    <div class="progress-bar">
+                        <div id="bar-desempleo" class="progress-fill" style="width: 20%"></div>
+                        <span id="val-desempleo" class="progress-text">10%</span>
+                    </div>
+                </div>
+                <div class="economy-item">
+                    <span>🔥 Inflación:</span>
+                    <div class="progress-bar">
+                        <div id="bar-inflacion" class="progress-fill" style="width: 5%"></div>
+                        <span id="val-inflacion" class="progress-text">-1%</span>
+                    </div>
+                </div>
+                <div class="economy-item">
+                    <span>😡 Descontento:</span>
+                    <div class="progress-bar">
+                        <div id="bar-descontento" class="progress-fill" style="width: 30%"></div>
+                        <span id="val-descontento" class="progress-text">30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de eventos -->
+            <div id="event-panel" class="event-panel hidden">
+                <h3 class="event-title">📰 NOTICIA</h3>
+                <p id="event-text" class="event-text"></p>
+                <button id="event-ok-btn" class="pixel-btn">CONTINUAR</button>
+            </div>
+
+            <!-- Panel de decisiones -->
+            <div id="decision-panel" class="decision-panel">
+                <h3 class="decision-title">🤔 ¿QUÉ HACÉS?</h3>
+                <div id="decisions-list" class="decisions-list">
+                    <!-- Se llenan dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Panel de game over -->
+            <div id="gameover-panel" class="gameover-panel hidden">
+                <h2 class="gameover-title">GAME OVER</h2>
+                <p id="gameover-reason" class="gameover-reason"></p>
+                <p class="gameover-turns">Sobreviviste <span id="final-turns">0</span> turnos</p>
+                <button id="restart-btn" class="pixel-btn">REINTENTAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio (opcional) -->
+    <audio id="audio-click" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp6qFZEwxSluj0u3AoBjCJ0fDTgjMHGW7A7+OZUQ8MWK7l8K9gHQc9k9v0yXosBSR3x/LaiTgIGWi56uSiWRMMUZvn9LtyKQYyidL0z4I0Bxltv+/nmVEPDFiu5fCvYB0HPZHb9Ml6LAUkd8fy2ok4CBlou+rkollTDBGb5/S7cikGMonS9M+CNQcabL/v55lRDwxYruXwr2AdBz2R2/TJeiwFJHfH8tqJOAgZaLvq5KJZUwwRm+f0u3IpBjKJ0vTPgjUHGmy/7+eZUQ8MWK7l8K9gHQc9kdv0yXosBSR3x/LaiTgIGWi76uSiWVMMEZvn9LtyKQYyidL0z4I1Bxpsv+/nmVEPDFiu5fCvYB0HPZHb9Ml6LAUkd8fy2ok4CBlou+rkollTDBGb5/S7cikGMonS9M+CNQcabL/v55lRDwxYruXwr2AdBz2R2/TJeiwFJHfH8tiJOQgZaLvq5KJZUwwRm+f0u3IpBjKJ0vTPgjUHGmy/7+eZUQ8MWK7l8"))
+
+    <script src="game.js"></script>
+</body>
+</html>

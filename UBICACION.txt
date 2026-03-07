@@ -1,0 +1,28 @@
+🎯 UBICACIÓN DEL PROYECTO
+========================
+
+Tu proyecto está en DOS lugares:
+
+📁 VERSIÓN WORKSPACE (temporal):
+   /workspaces/SimuladorArgentinaGame
+
+📁 VERSIÓN LOCAL (permanente):
+   /home/codespace/SimuladorArgentinaGame
+
+Para acceder desde la terminal:
+   cd ~/SimuladorArgentinaGame
+
+Para jugar:
+   cd ~/SimuladorArgentinaGame/game
+   python main.py
+
+Para analizar datos:
+   cd ~/SimuladorArgentinaGame/analysis
+   jupyter notebook analysis.ipynb
+
+Para ver en el explorador de VS Code:
+   - Abre el explorador de archivos (Ctrl+Shift+E)
+   - File → Open Folder
+   - Navega a: /home/codespace/SimuladorArgentinaGame
+
+🚀 Ahora tenés tu propia copia local del proyecto!

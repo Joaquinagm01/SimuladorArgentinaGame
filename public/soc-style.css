@@ -961,6 +961,43 @@ body {
     .action-btn {
         width: 100%;
     }
+    
+    /* Tabs optimized for mobile */
+    .tab-btn {
+        padding: 6px 6px;
+        font-size: 0.65rem;
+        gap: 2px;
+    }
+    
+    .tab-icon {
+        font-size: 1em;
+    }
+    
+    .tab-label {
+        display: inline;
+    }
+    
+    .tabs-main-title {
+        font-size: 0.9rem;
+    }
+}
+
+/* For very small screens - compact tabs with icons only option */
+@media (max-width: 480px) {
+    .tab-btn {
+        padding: 6px 5px;
+        font-size: 0.6rem;
+        gap: 1px;
+    }
+    
+    .tabs-nav {
+        gap: 1px;
+    }
+    
+    /* Make sure all tabs are visible by showing scroll indicator */
+    .tabs-header {
+        padding: 6px 8px 0 8px;
+    }
 }
 
 /* ============================================= */
@@ -1159,24 +1196,43 @@ body {
 
 .tabs-nav {
     display: flex;
-    gap: 3px;
+    gap: 2px;
     overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #00ff41 rgba(0, 0, 0, 0.3);
+}
+
+.tabs-nav::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tabs-nav::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.tabs-nav::-webkit-scrollbar-thumb {
+    background: #00ff41;
+    border-radius: 2px;
 }
 
 .tab-btn {
     background: transparent;
     border: none;
     color: var(--text-muted);
-    padding: 8px 10px;
+    padding: 8px 8px;
     cursor: pointer;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     transition: all 0.3s;
     border-bottom: 3px solid transparent;
     white-space: nowrap;
+    flex-shrink: 0;
+    min-width: fit-content;
 }
 
 .tab-btn:hover {

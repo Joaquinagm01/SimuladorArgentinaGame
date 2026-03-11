@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Botones Violetas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #fff;
+        }
+        .test-result {
+            background: #16213e;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .button-info {
+            background: #0f3460;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 3px solid #764ba2;
+        }
+        .warning {
+            background: #ff6b6b;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        code {
+            background: #0a0a0a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #00ff41;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Test de Botones Violetas (Gradiente #667eea → #764ba2)</h1>
+    
+    <button onclick="runTest()">🧪 Ejecutar Test</button>
+    <button onclick="clearResults()">🗑️ Limpiar</button>
+    
+    <div id="results"></div>
+    
+    <h2>Vista Previa del Dashboard:</h2>
+    <iframe id="dashboard-frame" src="soc-dashboard.html"></iframe>
+    
+    <script>
+        function runTest() {
+            const iframe = document.getElementById('dashboard-frame');
+            const resultsDiv = document.getElementById('results');
+            
+            iframe.onload = function() {
+                setTimeout(() => {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const iframeWindow = iframe.contentWindow;
+                    
+                    // Find all elements with position fixed or absolute
+                    const allElements = iframeDoc.querySelectorAll('*');
+                    const purpleButtons = [];
+                    const overlappingElements = [];
+                    
+                    allElements.forEach((elem) => {
+                        const styles = iframeWindow.getComputedStyle(elem);
+                        const bg = styles.background || styles.backgroundColor;
+                        const bgImage = styles.backgroundImage;
+                        
+                        // Check if element has purple gradient
+                        if (bgImage.includes('667eea') || bgImage.includes('764ba2') || 
+                            bg.includes('667eea') || bg.includes('764ba2')) {
+                            
+                            const rect = elem.getBoundingClientRect();
+                            const info = {
+                                tag: elem.tagName,
+                                className: elem.className,
+                                id: elem.id,
+                                text: elem.textContent.trim().substring(0, 50),
+                                position: styles.position,
+                                display: styles.display,
+                                visibility: styles.visibility,
+                                zIndex: styles.zIndex,
+                                top: styles.top,
+                                left: styles.left,
+                                right: styles.right,
+                                bottom: styles.bottom,
+                                width: rect.width,
+                                height: rect.height,
+                                rectTop: rect.top,
+                                rectLeft: rect.left,
+                                visible: rect.width > 0 && rect.height > 0 && 
+                                        styles.display !== 'none' && 
+                                        styles.visibility !== 'hidden'
+                            };
+                            
+                            purpleButtons.push(info);
+                        }
+                    });
+                    
+                    // Check for overlapping elements
+                    for (let i = 0; i < purpleButtons.length; i++) {
+                        for (let j = i + 1; j < purpleButtons.length; j++) {
+                            const btn1 = purpleButtons[i];
+                            const btn2 = purpleButtons[j];
+                            
+                            // Check if rectangles overlap
+                            if (btn1.rectTop < btn2.rectTop + btn2.height &&
+                                btn1.rectTop + btn1.height > btn2.rectTop &&
+                                btn1.rectLeft < btn2.rectLeft + btn2.width &&
+                                btn1.rectLeft + btn1.width > btn2.rectLeft) {
+                                overlappingElements.push([btn1, btn2]);
+                            }
+                        }
+                    }
+                    
+                    // Display results
+                    let html = '<div class="test-result">';
+                    html += `<h2>✅ Test Completado</h2>`;
+                    html += `<p><strong>Elementos con gradiente violeta encontrados:</strong> ${purpleButtons.length}</p>`;
+                    html += `<p><strong>Elementos superpuestos:</strong> ${overlappingElements.length}</p>`;
+                    html += '</div>';
+                    
+                    if (purpleButtons.length > 0) {
+                        html += '<div class="test-result">';
+                        html += '<h3>🎨 Elementos con Gradiente Violeta (#667eea → #764ba2):</h3>';
+                        purpleButtons.forEach((btn, idx) => {
+                            html += `<div class="button-info">`;
+                            html += `<strong>Elemento #${idx + 1}</strong><br>`;
+                            html += `📌 Tag: <code>${btn.tag}</code><br>`;
+                            html += `📝 Clase: <code>${btn.className || 'n/a'}</code><br>`;
+                            html += `🆔 ID: <code>${btn.id || 'n/a'}</code><br>`;
+                            html += `📄 Texto: ${btn.text || 'vacío'}<br>`;
+                            html += `📍 Posición: <code>${btn.position}</code><br>`;
+                            html += `📐 Dimensiones: ${btn.width.toFixed(0)}x${btn.height.toFixed(0)}px<br>`;
+                            html += `📊 Coordenadas: top: ${btn.top}, left: ${btn.left}, right: ${btn.right}, bottom: ${btn.bottom}<br>`;
+                            html += `👁️ Visible: ${btn.visible ? '✅ Sí' : '❌ NO (OCULTO)'}<br>`;
+                            html += `🔢 Z-Index: <code>${btn.zIndex}</code>`;
+                            html += `</div>`;
+                        });
+                        html += '</div>';
+                        
+                        // Show hidden elements
+                        const hiddenButtons = purpleButtons.filter(b => !b.visible);
+                        if (hiddenButtons.length > 0) {
+                            html += '<div class="warning">';
+                            html += `⚠️ <strong>ADVERTENCIA:</strong> Se encontraron ${hiddenButtons.length} elementos violetas OCULTOS:<br>`;
+                            hiddenButtons.forEach(btn => {
+                                html += `- ${btn.tag}.${btn.className} (${btn.text.substring(0, 30)})<br>`;
+                            });
+                            html += '</div>';
+                        }
+                        
+                        // Show overlapping elements
+                        if (overlappingElements.length > 0) {
+                            html += '<div class="warning">';
+                            html += `⚠️ <strong>ADVERTENCIA:</strong> Se encontraron ${overlappingElements.length} pares de elementos SUPERPUESTOS:<br>`;
+                            overlappingElements.forEach(([btn1, btn2], idx) => {
+                                html += `<br><strong>Superposición #${idx + 1}:</strong><br>`;
+                                html += `- ${btn1.tag}.${btn1.className} (z-index: ${btn1.zIndex})<br>`;
+                                html += `- ${btn2.tag}.${btn2.className} (z-index: ${btn2.zIndex})<br>`;
+                            });
+                            html += '</div>';
+                        }
+                    } else {
+                        html += '<div class="test-result">';
+                        html += '<h3>✅ No se encontraron elementos violetas visibles</h3>';
+                        html += '<p>Los botones violetas han sido deshabilitados correctamente.</p>';
+                        html += '</div>';
+                    }
+                    
+                    resultsDiv.innerHTML = html;
+                }, 2000);
+            };
+            
+            iframe.src = iframe.src;
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        window.addEventListener('load', () => {
+            setTimeout(runTest, 1000);
+        });
+    </script>
+</body>
+</html>

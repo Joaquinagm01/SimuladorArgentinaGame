@@ -749,10 +749,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     await eduContentSystem.loadAllData();
     
     // Create floating buttons once quiz/flashcards/careers are loaded
-    createEducationalButtons();
+    // createEducationalButtons(); // Disabled - user requested to remove floating menu
 });
 
 function createEducationalButtons() {
+    // Disabled - user requested to remove floating menu with educational buttons
+    /*
     // Add buttons to help panel or create floating menu
     const container = document.createElement('div');
     container.className = 'edu-floating-menu';
@@ -764,4 +766,5 @@ function createEducationalButtons() {
     `;
     
     document.body.appendChild(container);
+    */
 }

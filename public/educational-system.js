@@ -37,7 +37,7 @@ class EducationalSystem {
             
             this.initialized = true;
             this.initializeTooltips();
-            this.createEducationalUI();
+            // this.createEducationalUI(); // Disabled - user requested to remove help button
             this.checkFirstVisit();
             
         } catch (error) {
@@ -236,12 +236,15 @@ class EducationalSystem {
     }
     
     createEducationalUI() {
+        // Disabled - user requested to remove help button
+        /*
         const helpButton = document.createElement('button');
         helpButton.className = 'help-button';
         helpButton.innerHTML = '?';
         helpButton.title = 'Ayuda y Recursos';
         helpButton.onclick = () => this.toggleHelpPanel();
         document.body.appendChild(helpButton);
+        */
     }
     
     toggleHelpPanel() {

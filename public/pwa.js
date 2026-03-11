@@ -82,7 +82,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
   deferredPrompt = event;
   
   // Show custom install button
-  showInstallButton();
+  // showInstallButton(); // Disabled - user requested to hide install prompt
 });
 
 /**

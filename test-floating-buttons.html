@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Floating Buttons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #fff;
+        }
+        .test-result {
+            background: #16213e;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #00ff41;
+        }
+        .button-info {
+            background: #0f3460;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #ff6b6b;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Test de Botones Flotantes - Costado Derecho</h1>
+    
+    <button onclick="runTest()">🧪 Ejecutar Test</button>
+    <button onclick="clearResults()">🗑️ Limpiar Resultados</button>
+    
+    <div id="results"></div>
+    
+    <h2>Vista Previa del Dashboard:</h2>
+    <iframe id="dashboard-frame" src="soc-dashboard.html"></iframe>
+    
+    <script>
+        function runTest() {
+            const iframe = document.getElementById('dashboard-frame');
+            const resultsDiv = document.getElementById('results');
+            
+            // Wait for iframe to load
+            iframe.onload = function() {
+                setTimeout(() => {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Find all buttons
+                    const allButtons = iframeDoc.querySelectorAll('button, .button, [role="button"]');
+                    
+                    // Find fixed position elements
+                    const fixedElements = [];
+                    const rightSideButtons = [];
+                    
+                    allButtons.forEach((btn, index) => {
+                        const styles = iframe.contentWindow.getComputedStyle(btn);
+                        const position = styles.position;
+                        const right = styles.right;
+                        const bottom = styles.bottom;
+                        const display = styles.display;
+                        
+                        if (position === 'fixed' && display !== 'none') {
+                            const info = {
+                                index: index,
+                                className: btn.className,
+                                id: btn.id,
+                                text: btn.textContent.trim().substring(0, 50),
+                                innerHTML: btn.innerHTML.substring(0, 100),
+                                position: position,
+                                right: right,
+                                bottom: bottom,
+                                top: styles.top,
+                                left: styles.left,
+                                visible: styles.display !== 'none' && styles.visibility !== 'hidden'
+                            };
+                            
+                            fixedElements.push(info);
+                            
+                            // Check if it's on the right side (right < 50px or right is set and left is auto)
+                            const rightValue = parseInt(right);
+                            const leftValue = parseInt(styles.left);
+                            
+                            if (rightValue >= 0 && rightValue < 100) {
+                                rightSideButtons.push(info);
+                            }
+                        }
+                    });
+                    
+                    // Display results
+                    let html = '<div class="test-result">';
+                    html += `<h2>✅ Test Completado</h2>`;
+                    html += `<p><strong>Total de botones encontrados:</strong> ${allButtons.length}</p>`;
+                    html += `<p><strong>Elementos con position: fixed:</strong> ${fixedElements.length}</p>`;
+                    html += `<p><strong>Botones flotantes en el costado DERECHO:</strong> ${rightSideButtons.length}</p>`;
+                    html += '</div>';
+                    
+                    if (rightSideButtons.length > 0) {
+                        html += '<div class="test-result">';
+                        html += '<h3>🎯 Botones Flotantes en el Costado Derecho:</h3>';
+                        rightSideButtons.forEach((btn, idx) => {
+                            html += `<div class="button-info">`;
+                            html += `<strong>Botón #${idx + 1}</strong><br>`;
+                            html += `📝 Clase: <code>${btn.className || 'n/a'}</code><br>`;
+                            html += `🆔 ID: <code>${btn.id || 'n/a'}</code><br>`;
+                            html += `📄 Texto: ${btn.text || 'vacío'}<br>`;
+                            html += `📍 Posición: right: ${btn.right}, bottom: ${btn.bottom}, top: ${btn.top}<br>`;
+                            html += `👁️ Visible: ${btn.visible ? '✅ Sí' : '❌ No'}<br>`;
+                            html += `🔧 HTML: <code>${btn.innerHTML.replace(/</g, '&lt;')}</code>`;
+                            html += `</div>`;
+                        });
+                        html += '</div>';
+                        
+                        if (rightSideButtons.length > 1) {
+                            html += '<div class="warning">';
+                            html += `⚠️ <strong>ADVERTENCIA:</strong> Se encontraron ${rightSideButtons.length} botones flotantes en el costado derecho. `;
+                            html += `Puede haber botones duplicados o innecesarios.`;
+                            html += '</div>';
+                        }
+                    }
+                    
+                    // Show all fixed elements for reference
+                    if (fixedElements.length > rightSideButtons.length) {
+                        html += '<div class="test-result">';
+                        html += '<h3>📋 Otros elementos fijos (no en costado derecho):</h3>';
+                        fixedElements.forEach((elem, idx) => {
+                            if (!rightSideButtons.includes(elem)) {
+                                html += `<div class="button-info">`;
+                                html += `<strong>Elemento #${idx + 1}</strong><br>`;
+                                html += `📝 Clase: <code>${elem.className || 'n/a'}</code><br>`;
+                                html += `📍 Posición: right: ${elem.right}, bottom: ${elem.bottom}, top: ${elem.top}, left: ${elem.left}`;
+                                html += `</div>`;
+                            }
+                        });
+                        html += '</div>';
+                    }
+                    
+                    resultsDiv.innerHTML = html;
+                }, 2000); // Wait 2 seconds for all scripts to initialize
+            };
+            
+            // Reload iframe to trigger test
+            iframe.src = iframe.src;
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        // Auto-run test on load
+        window.addEventListener('load', () => {
+            setTimeout(runTest, 1000);
+        });
+    </script>
+</body>
+</html>

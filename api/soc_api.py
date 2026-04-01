@@ -66,6 +66,27 @@ import csv
 from datetime import datetime
 import random
 
+# Difficulty tuning for web runtime. Default is easy for new players.
+GAME_DIFFICULTY = os.getenv('GAME_DIFFICULTY', 'easy').lower()
+EASY_MODE = GAME_DIFFICULTY == 'easy'
+EVENT_TRIGGER_CHANCE = 0.45 if EASY_MODE else 0.70
+NEGATIVE_EVENT_MULTIPLIER = 0.50 if EASY_MODE else 1.00
+INCOME_BONUS_MULTIPLIER = 1.35 if EASY_MODE else 1.00
+
+
+def soften_negative_event_effects(effects):
+    """Reduce negative effects in easy mode while keeping positive rewards."""
+    if not EASY_MODE:
+        return effects
+
+    adjusted = {}
+    for key, value in effects.items():
+        if isinstance(value, (int, float)) and value < 0:
+            adjusted[key] = int(value * NEGATIVE_EVENT_MULTIPLIER)
+        else:
+            adjusted[key] = value
+    return adjusted
+
 # Import schemas and auth
 try:
     from schemas import (
@@ -534,14 +555,15 @@ def execute_decision(session_id):
     if not success:
         return jsonify({"success": False, "error": message}), 400
     
-    # Trigger random event (70% chance)
+    # Trigger random event
     event = None
     event_message = None
-    if random.random() > 0.3:
+    if random.random() < EVENT_TRIGGER_CHANCE:
         event = game.event_manager.get_random_event()
         if event:
             if "effects" in event:
-                game.security.update_metrics(**event["effects"])
+                adjusted_effects = soften_negative_event_effects(event["effects"])
+                game.security.update_metrics(**adjusted_effects)
             event_message = {
                 "name": event["name"],
                 "description": event["description"],
@@ -573,7 +595,7 @@ def execute_decision(session_id):
     game.turn += 1
     
     # NUEVO: Ingresos pasivos cada turno (presupuesto mensual)
-    income = game.security.income_per_turn
+    income = int(game.security.income_per_turn * INCOME_BONUS_MULTIPLIER)
     game.security.budget += income
     income_message = f"💰 Presupuesto mensual recibido: +${income:,}"
     

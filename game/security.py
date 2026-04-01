@@ -8,10 +8,10 @@ Variables y métricas del Security Operations Center
 class SecuritySystem:
     def __init__(self):
         # Métricas principales del SOC - MODO FÁCIL
-        self.security_score = 85  # Puntuación general de seguridad (0-100) - MUY alto para aprender
-        self.budget = 250000  # Presupuesto en USD - MUCHO dinero para experimentar
-        self.reputation = 75  # Reputación de la organización (0-100) - Buenos comienzos
-        self.income_per_turn = 15000  # NUEVO: Ingresos pasivos por turno - para que siempre pueda mejorar
+        self.security_score = 90  # Puntuación general de seguridad (0-100)
+        self.budget = 300000  # Presupuesto en USD
+        self.reputation = 80  # Reputación de la organización (0-100)
+        self.income_per_turn = 20000  # Ingresos pasivos por turno
         
         # Infraestructura
         self.servers_infected = 0  # Servidores comprometidos
@@ -194,8 +194,8 @@ class SecuritySystem:
         if self.security_score <= 0:
             conditions.append("Security score reached 0")
         
-        if self.successful_breaches >= 5:
-            conditions.append("Too many successful breaches (5+)")
+        if self.successful_breaches >= 7:
+            conditions.append("Too many successful breaches (7+)")
         
         if self.servers_infected >= self.total_servers * 0.8:
             conditions.append("80%+ of infrastructure compromised")

@@ -14,6 +14,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 import sys
 import os
 import json
+import tempfile
 
 # Add game directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'game'))
@@ -93,8 +94,12 @@ app.config['COMPRESS_MIN_SIZE'] = 500  # Min bytes to compress
 
 # Initialize database on startup
 if DB_ENABLED:
-    init_db()
-    db_service = get_db_service()
+    try:
+        init_db()
+        db_service = get_db_service()
+    except Exception as e:
+        DB_ENABLED = False
+        print(f"⚠️ Database init failed, continuing without DB: {e}")
 
 # ============= Swagger UI Configuration =============
 SWAGGER_URL = '/api/docs'
@@ -182,12 +187,16 @@ class GameSession:
         self.max_turns = 30
         self.game_over = False
         self.victory = False
-        self.data_file = f"data/soc_data_{session_id}.csv"
+        data_dir = os.getenv("GAME_DATA_DIR")
+        if not data_dir:
+            # Vercel functions can write only under /tmp.
+            data_dir = os.path.join(tempfile.gettempdir(), "simulador_data") if os.getenv("VERCEL") else "data"
+        self.data_file = os.path.join(data_dir, f"soc_data_{session_id}.csv")
         self.setup_data_file()
     
     def setup_data_file(self):
         """Create CSV file for this session"""
-        os.makedirs("data", exist_ok=True)
+        os.makedirs(os.path.dirname(self.data_file), exist_ok=True)
         with open(self.data_file, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([
@@ -579,6 +588,24 @@ def health():
         "database": "enabled" if DB_ENABLED else "disabled"
     })
 
+
+@app.route('/api/analytics', methods=['POST'])
+@limiter.limit("300 per minute")
+def analytics_ingest():
+    """Ingest frontend performance metrics without breaking UX."""
+    try:
+        payload = request.get_json(silent=True)
+        if payload is None and request.data:
+            # Beacon API may send plain JSON bytes without content-type header.
+            payload = json.loads(request.data.decode('utf-8'))
+    except Exception:
+        payload = None
+
+    return jsonify({
+        "success": True,
+        "received": bool(payload)
+    }), 202
+
 # ============= NEW DATABASE ENDPOINTS =============
 
 @app.route('/api/game/save', methods=['POST'])
@@ -770,6 +797,7 @@ app.add_url_rule('/api/v1/stats/global', 'get_global_stats_v1', get_global_stats
 # System endpoints
 app.add_url_rule('/api/v1/health', 'health_v1', health, methods=['GET'])
 app.add_url_rule('/api/v1/version', 'api_version_v1', api_version, methods=['GET'])
+app.add_url_rule('/api/v1/analytics', 'analytics_ingest_v1', analytics_ingest, methods=['POST'])
 
 print("✅ API versioning configured: /api/ and /api/v1/ available")
 

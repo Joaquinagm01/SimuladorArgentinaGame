@@ -1,41 +1,24 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Cyber Defense Simulator - Server Launcher
-Starts the Flask API and serves the web interface
+🚀 Cyber Argentina Launcher
+Ejecuta el simulador de ciberseguridad argentina + stats
 """
 
-import os
+import subprocess
 import sys
-import webbrowser
-import time
-from threading import Timer
+import os
 
-# Add directories to path
-base_dir = os.path.dirname(os.path.abspath(__file__))
-api_dir = os.path.join(base_dir, 'api')
-game_dir = os.path.join(base_dir, 'game')
-
-sys.path.insert(0, api_dir)
-sys.path.insert(0, game_dir)
-
-os.chdir(base_dir)
+def main():
+    print("🚀 Starting Cyber Argentina Simulator...")
+    print("🎮 Ciberseguridad del Estado + Economía")
+    print("📊 's' = stats en juego | Logs: data/game_log.csv\\n")
+    
+    if not os.path.exists('cyber_argentina.py'):
+        print("❌ cyber_argentina.py no encontrado")
+        sys.exit(1)
+    
+    subprocess.run([sys.executable, 'cyber_argentina.py'])
 
 if __name__ == '__main__':
-    print("="*60)
-    print("🛡️  CYBER DEFENSE SIMULATOR - SERVER")
-    print("="*60)
-    print("\n🚀 Starting SOC server...")
-    print("📍 Server will run at: http://localhost:8080")
-    print("🌐 Opening browser automatically...\n")
-    print("⚠️  Press Ctrl+C to stop the server\n")
-    print("="*60 + "\n")
-    
-    # Open browser after delay
-    Timer(2.0, lambda: webbrowser.open('http://localhost:8080')).start()
-    
-    # Import and run Flask app
-    from soc_api import app
-    
-    # Run server
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    main()
+

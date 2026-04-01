@@ -7,7 +7,6 @@ from soc_api import app
 # Vercel needs the app to be exposed as 'app' or exported as a handler
 # This file serves as the entry point for Vercel
 handler = app
-    economy = Economy()
     
     games[game_id] = {
         'economy': economy,

@@ -140,34 +140,51 @@ body {
 }
 
 /* Game screen */
-.game-header {
+/* HUD Overlay - Siempre visible, esquina superior derecha */
+.hud-overlay {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
     gap: 10px;
+    background: rgba(0,0,0,0.8);
+    border: 2px solid var(--retro-primary);
+    border-radius: 8px;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    animation: hudGlow 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 20px var(--retro-shadow);
 }
 
-.stat-box {
-    background: rgba(0,255,65,0.1);
-    border: 2px solid var(--retro-primary);
-    padding: 10px 20px;
+@keyframes hudGlow {
+    0% { box-shadow: 0 0 10px var(--retro-shadow); }
+    100% { box-shadow: 0 0 30px var(--retro-shadow); }
+}
+
+.hud-stat {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 120px;
+    min-width: 50px;
 }
 
-.stat-label {
-    font-size: 0.8rem;
-    color: var(--retro-primary);
-    margin-bottom: 5px;
+.hud-label {
+    font-size: 0.7rem;
+    color: var(--retro-secondary);
+    text-transform: uppercase;
 }
 
-.stat-value {
-    font-size: 1.5rem;
+.hud-value {
+    font-size: 1.2rem;
     color: var(--retro-primary);
     font-weight: bold;
+    text-shadow: 0 0 5px var(--retro-primary);
+}
+
+/* Legacy game-header (hide when HUD active) */
+.game-header {
+    display: none; /* Ocultar header grande, HUD lo reemplaza */
 }
 
 /* Panel de economía */
@@ -278,6 +295,46 @@ body {
     gap: 15px;
 }
 
+.decision-card.iconic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: rgba(0,255,65,0.1);
+    border: 3px solid var(--retro-primary);
+    padding: 20px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 120px;
+}
+
+.decision-card.iconic:hover {
+    background: rgba(0,255,65,0.25);
+    border-color: var(--retro-secondary);
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 10px 30px var(--retro-shadow);
+}
+
+.decision-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px var(--retro-primary));
+    transition: transform 0.2s;
+}
+
+.decision-card.iconic:hover .decision-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.decision-short-title {
+    color: var(--retro-primary);
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Legacy card styles preserved */
 .decision-card {
     background: rgba(0,255,65,0.05);
     border: 2px solid var(--retro-primary);

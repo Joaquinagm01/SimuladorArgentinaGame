@@ -53,6 +53,14 @@ const turnEl = document.getElementById('turn');
 const pbiEl = document.getElementById('pbi');
 const reservasEl = document.getElementById('reservas');
 
+// HUD animation helper
+function animateHudUpdate() {
+    [turnEl, pbiEl, reservasEl].forEach(el => {
+        el.style.transform = 'scale(1.2)';
+        setTimeout(() => el.style.transform = 'scale(1)', 200);
+    });
+}
+
 // Barras de progreso
 const barDeuda = document.getElementById('bar-deuda');
 const valDeuda = document.getElementById('val-deuda');
@@ -129,19 +137,40 @@ async function loadDecisions() {
 }
 
 // Renderizar decisiones
+function getDecisionIcon(title) {
+    const iconMap = {
+        deuda: '💰',
+        'devalu': '💸',
+        empleo: '👷',
+        desempleo: '📉',
+        inflacion: '🔥',
+        fmi: '🏦',
+        imprimir: '🖨️',
+        default: '🤔'
+    };
+    const lowerTitle = title.toLowerCase();
+    for (const [key, icon] of Object.entries(iconMap)) {
+        if (lowerTitle.includes(key)) return icon;
+    }
+    return iconMap.default;
+}
+
 function renderDecisions() {
     decisionsList.innerHTML = '';
     
-    // Mostrar 3 decisiones random
     const shuffled = [...gameState.decisions].sort(() => Math.random() - 0.5);
     const selectedDecisions = shuffled.slice(0, 3);
     
     selectedDecisions.forEach(decision => {
+        const icon = getDecisionIcon(decision.title);
+        const shortTitle = decision.title.length > 20 ? decision.title.substring(0, 20) + '...' : decision.title;
+        
         const card = document.createElement('div');
-        card.className = 'decision-card';
+        card.className = 'decision-card iconic';
+        card.title = decision.description; // Tooltip completo
         card.innerHTML = `
-            <div class="decision-card-title">${decision.title}</div>
-            <div class="decision-card-desc">${decision.description}</div>
+            <div class="decision-icon">${icon}</div>
+            <div class="decision-short-title">${shortTitle}</div>
         `;
         
         card.addEventListener('click', () => makeDecision(decision.id));
@@ -211,10 +240,12 @@ function hideEvent() {
 function updateUI() {
     const state = gameState.economy;
     
-    // Header stats
+    // Update HUD stats (always visible)
     turnEl.textContent = gameState.turn;
     pbiEl.textContent = Math.round(state.pbi);
     reservasEl.textContent = Math.round(state.reservas);
+    
+    animateHudUpdate();
     
     // Deuda
     const deudaPercent = Math.min((state.deuda / 200) * 100, 100);

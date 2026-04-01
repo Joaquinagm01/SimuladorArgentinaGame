@@ -7,10 +7,39 @@ RESTful endpoints for web/mobile gameplay
 
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-from flask_compress import Compress
-from flask_swagger_ui import get_swaggerui_blueprint
+try:
+    from flask_limiter import Limiter
+    from flask_limiter.util import get_remote_address
+    LIMITER_AVAILABLE = True
+except ImportError:
+    LIMITER_AVAILABLE = False
+
+    def get_remote_address():
+        return "0.0.0.0"
+
+    class Limiter:  # Graceful no-op fallback
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def limit(self, *args, **kwargs):
+            def decorator(func):
+                return func
+            return decorator
+
+try:
+    from flask_compress import Compress
+    COMPRESS_AVAILABLE = True
+except ImportError:
+    COMPRESS_AVAILABLE = False
+
+    def Compress(app):
+        return app
+
+try:
+    from flask_swagger_ui import get_swaggerui_blueprint
+    SWAGGER_AVAILABLE = True
+except ImportError:
+    SWAGGER_AVAILABLE = False
 import sys
 import os
 import json
@@ -105,16 +134,17 @@ if DB_ENABLED:
 SWAGGER_URL = '/api/docs'
 API_URL = '/api/swagger.json'
 
-swaggerui_blueprint = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': "Cyber Defense Simulator API",
-        'docExpansion': 'list',
-        'defaultModelsExpandDepth': 2
-    }
-)
-app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+if SWAGGER_AVAILABLE:
+    swaggerui_blueprint = get_swaggerui_blueprint(
+        SWAGGER_URL,
+        API_URL,
+        config={
+            'app_name': "Cyber Defense Simulator API",
+            'docExpansion': 'list',
+            'defaultModelsExpandDepth': 2
+        }
+    )
+    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 # Serve swagger.json
 @app.route('/api/swagger.json')

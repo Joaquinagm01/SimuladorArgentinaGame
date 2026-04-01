@@ -3,7 +3,7 @@
  * Provides offline functionality and performance optimization
  */
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const CACHE_NAME = `soc-simulator-${CACHE_VERSION}`;
 const DATA_CACHE_NAME = `soc-data-${CACHE_VERSION}`;
 

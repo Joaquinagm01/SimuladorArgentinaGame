@@ -141,12 +141,19 @@ async function apiCall(endpoint, method = 'GET', body = null) {
     try {
         const response = await fetch(url, options);
         console.log(`📡 Response status: ${response.status}`);
-        
-        const data = await response.json();
+
+        const rawText = await response.text();
+        let data = null;
+        try {
+            data = rawText ? JSON.parse(rawText) : {};
+        } catch (parseError) {
+            data = { error: rawText || 'Invalid server response' };
+        }
+
         console.log('📥 Response data:', data);
         
         if (!response.ok) {
-            throw new Error(data.error || 'API request failed');
+            throw new Error(data.error || `API request failed (${response.status})`);
         }
         
         return data;

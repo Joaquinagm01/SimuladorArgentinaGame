@@ -15,6 +15,10 @@
       "src": "/api/(.*)",
       "dest": "/api/index.py"
     },
+    {
+      "src": "/(.*\\.(js|css|json|md|html|png|jpg|jpeg|svg|ico|webp|map|txt|xml))",
+      "dest": "/public/$1"
+    },
     { "handle": "filesystem" },
     {
       "src": "/",

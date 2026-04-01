@@ -4,6 +4,10 @@
     {
       "src": "api/index.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -11,16 +15,13 @@
       "src": "/api/(.*)",
       "dest": "/api/index.py"
     },
-    {
-      "src": "/data/(.*)",
-      "dest": "/public/data/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|json|md|html|png|jpg|svg|ico|webp))",
-      "dest": "/public/$1"
-    },
+    { "handle": "filesystem" },
     {
       "src": "/",
+      "dest": "/public/soc-dashboard.html"
+    },
+    {
+      "src": "/(.*)",
       "dest": "/public/soc-dashboard.html"
     }
   ],
